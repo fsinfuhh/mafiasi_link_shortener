@@ -106,16 +106,24 @@ class Base(BaseAuthConfigurationMixin, Configuration):
 
     STATIC_URL = "/static/"
 
-    LOGIN_REDIRECT_URL = "/admin"
+    LOGIN_REDIRECT_URL = "/admin/"
     LOGIN_URL = "/auth"
 
     # rest framework
     REST_FRAMEWORK = {
+        "DEFAULT_AUTHENTICATION_CLASSES": [
+            "rest_framework.authentication.SessionAuthentication",
+        ],
+        "DEFAULT_PERMISSION_CLASSES": [
+            "rest_framework.permissions.IsAuthenticated",
+        ],
         "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
         "PAGE_SIZE": 100,
     }
 
     VERSION = "0.1.0"
+
+    AUTH_SCOPE = ["openid", "profile"]
 
     # Configurable properties
     SECRET_KEY = values.SecretValue()

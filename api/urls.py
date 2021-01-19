@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register("links", views.LinkViewset)
+router.register("links", views.LinkViewset, basename="link")
 
 urlpatterns = [
                   path("schema", get_schema_view(title="Mafiasi Link Sortener", version=settings.VERSION),

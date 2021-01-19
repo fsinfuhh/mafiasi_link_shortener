@@ -19,6 +19,7 @@ def link_default_short() -> str:
 class Link(models.Model):
     short = models.CharField(max_length=32, primary_key=True, db_index=True, default=link_default_short)
     target = models.URLField()
+    owner = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="owned_links", null=True)
 
     def __str__(self):
         return f"{self.short} -> {self.target}"
