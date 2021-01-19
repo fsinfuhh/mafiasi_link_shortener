@@ -28,6 +28,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
                          "django.contrib.messages",
                          "django.contrib.staticfiles",
                          "rest_framework",
+                         "drf_spectacular",
                          "links",
                          "api",
                      ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
@@ -109,6 +110,8 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     LOGIN_REDIRECT_URL = "/admin/"
     LOGIN_URL = "/auth"
 
+    VERSION = "0.1.0"
+
     # rest framework
     REST_FRAMEWORK = {
         "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -117,11 +120,29 @@ class Base(BaseAuthConfigurationMixin, Configuration):
         "DEFAULT_PERMISSION_CLASSES": [
             "rest_framework.permissions.IsAuthenticated",
         ],
+        "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
         "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
         "PAGE_SIZE": 100,
     }
 
-    VERSION = "0.1.0"
+    # openapi schema settings
+    # todo add oidc connect authorization documentation
+    SPECTACULAR_SETTINGS = {
+        "TITLE": "Mafiasi Link Shortener",
+        "CONTACT": {
+            "name": "Server-Ag",
+            "email": "ag-server@informatik.uni-hamburg.de",
+        },
+        "VERSION": VERSION,
+        "LICENSE": {
+            "name": "MIT",
+            "url": "https://github.com/fsinfuhh/mafiasi_link_shortener/blob/master/LICENSE",
+        },
+
+        "SCHEMA_PATH_PREFIX": r"/api/",
+        "COMPONENT_SPLIT_PATCH": True,
+        "COMPONENT_SPLIT_REQUEST": True,
+    }
 
     AUTH_SCOPE = ["openid", "profile"]
 
