@@ -21,19 +21,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 class Base(BaseAuthConfigurationMixin, Configuration):
     # Application definition
     INSTALLED_APPS = [
-        "django.contrib.admin",
-        "django.contrib.auth",
-        "django.contrib.contenttypes",
-        "django.contrib.sessions",
-        "django.contrib.messages",
-        "django.contrib.staticfiles",
-        "links",
-    ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
+                         "django.contrib.admin",
+                         "django.contrib.auth",
+                         "django.contrib.contenttypes",
+                         "django.contrib.sessions",
+                         "django.contrib.messages",
+                         "django.contrib.staticfiles",
+                         "rest_framework",
+                         "links",
+                         "api",
+                     ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.cache.UpdateCacheMiddleware",
         "django.middleware.common.CommonMiddleware",
+        "django.middleware.cache.FetchFromCacheMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
@@ -76,23 +80,13 @@ class Base(BaseAuthConfigurationMixin, Configuration):
             }
         }
 
-    # Password validation
-    # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-
-    AUTH_PASSWORD_VALIDATORS = [
-        {
-            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-        },
-    ]
+    @property
+    def CACHES(self):
+        return {
+            "default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache" if not self.DEBUG else "django.core.cache.backends.dummy.DummyCache"
+            }
+        }
 
     # Internationalization
     # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -112,6 +106,17 @@ class Base(BaseAuthConfigurationMixin, Configuration):
 
     STATIC_URL = "/static/"
 
+    LOGIN_REDIRECT_URL = "/admin"
+    LOGIN_URL = "/auth"
+
+    # rest framework
+    REST_FRAMEWORK = {
+        "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+        "PAGE_SIZE": 100,
+    }
+
+    VERSION = "0.1.0"
+
     # Configurable properties
     SECRET_KEY = values.SecretValue()
     DEBUG = values.BooleanValue(default=False)
@@ -125,7 +130,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
 
 
 class Dev(DevAuthConfigurationMixin, Base):
-    SECRET_KEY = values.Value(default="q@26c)#%lxzh0ip6bs--eeg9pz+80+yefn5zc)lxf_&!c#1c(2")
+    SECRET_KEY = values.Value(default="DEV ONLY! DONT USE IN PRODUCTION")
     DEBUG = values.BooleanValue(default=True)
     ALLOWED_HOSTS = values.ListValue(default=["localhost", "127.0.0.1"])
     DB_HOST = values.Value(default="localhost")
