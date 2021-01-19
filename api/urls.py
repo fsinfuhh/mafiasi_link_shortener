@@ -1,6 +1,4 @@
 from django.urls import path
-from django.views.generic import TemplateView
-from django.conf import settings
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
 from . import views

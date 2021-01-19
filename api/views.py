@@ -5,6 +5,7 @@ from links import models
 
 class LinkViewset(viewsets.ModelViewSet):
     serializer_class = serializers.LinkSerializer
+    lookup_field = "short"
 
     def get_queryset(self):
         return models.Link.objects\

@@ -8,6 +8,9 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Link
         fields = ["selflink", "short", "owner", "target"]
+        extra_kwargs = {
+            "selflink": {"lookup_field": "short"}
+        }
 
     short = serializers.CharField(min_length=6, max_length=32, default=serializers.CreateOnlyDefault(models.link_default_short))
     owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
