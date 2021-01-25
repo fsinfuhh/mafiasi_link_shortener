@@ -35,6 +35,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
+        "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.cache.UpdateCacheMiddleware",
         "django.middleware.common.CommonMiddleware",
@@ -106,6 +107,8 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
     STATIC_URL = "/static/"
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    WHITENOISE_ROOT = BASE_DIR / "mafiasi_link_shortener" / "root_static"
 
     LOGIN_REDIRECT_URL = "swagger-ui"
     LOGIN_URL = "/auth/"
@@ -155,6 +158,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     DB_PASSWORD = values.SecretValue()
     DB_NAME = values.Value(default="mafiasi_link_shortener")
     LINK_SHORT_LENGTH = values.IntegerValue(default=6)
+    STATIC_ROOT = values.PathValue(default=BASE_DIR.parent / "static")
 
 
 class Dev(DevAuthConfigurationMixin, Base):
@@ -164,8 +168,14 @@ class Dev(DevAuthConfigurationMixin, Base):
     DB_HOST = values.Value(default="localhost")
     DB_PASSWORD = values.Value(default="mafiasi_link_shortener")
 
-    INSTALLED_APPS = Base.INSTALLED_APPS + ["debug_toolbar"]
+    INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + Base.INSTALLED_APPS + ["debug_toolbar"]
     MIDDLEWARE = Base.MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]
     INTERNAL_IPS = [
         "127.0.0.1"
     ]
+
+    WHITENOISE_AUTOREFRESH = True
+
+
+class Prod(Base):
+    pass

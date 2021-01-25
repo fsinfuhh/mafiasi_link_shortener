@@ -9,13 +9,8 @@ django-configurations = "~=2.2"     # better class-based django configuration
 djangorestframework = "~=3.12"      # api framework
 drf-spectacular = "~=0.13"          # openapi schema generation
 psycopg2 = "~=2.8"
-
-[packages.django-auth-mafiasi]
-#editable = true
-#ref = "master"
-ref = "v1.3.3"
-git = "ssh://git@git.mafiasi.de/mafiasi-ag/django_auth_mafiasi.git"
-extras = ["djangorestframework", "django-configurations"]
+whitenoise = { version = "~=5.2", extras = ["brotli"] }
+django-auth-mafiasi = { ref = "v1.3.3", git = "ssh://git@git.mafiasi.de/mafiasi-ag/django_auth_mafiasi.git", extras = ["djangorestframework", "django-configurations"] }
 
 [dev-packages]
 django-debug-toolbar = "*"
