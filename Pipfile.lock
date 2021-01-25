@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4508a03595edcb2c9dcfe94b422298e03da34dbcc26170634596bec427501e4d"
+            "sha256": "6e119a0603abb590a9d4c43947001f5f395049b75ef66dd31bd4f770237f5a39"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -173,7 +173,7 @@
                 "djangorestframework"
             ],
             "git": "ssh://git@git.mafiasi.de/mafiasi-ag/django_auth_mafiasi.git",
-            "ref": "bacf2af42521f9454257e40e216d3fefe73de0ef"
+            "ref": "4ed4e4a76f2edf854fb559440dc81c7860977ee5"
         },
         "django-configurations": {
             "hashes": [
@@ -182,6 +182,14 @@
             ],
             "index": "pypi",
             "version": "==2.2"
+        },
+        "django-cors-headers": {
+            "hashes": [
+                "sha256:5665fc1b1aabf1b678885cf6f8f8bd7da36ef0a978375e767d491b48d3055d8f",
+                "sha256:ba898dd478cd4be3a38ebc3d8729fa4d044679f8c91b2684edee41129d7e968a"
+            ],
+            "index": "pypi",
+            "version": "==3.6.0"
         },
         "djangorestframework": {
             "hashes": [

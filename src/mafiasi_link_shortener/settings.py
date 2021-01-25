@@ -29,20 +29,22 @@ class Base(BaseAuthConfigurationMixin, Configuration):
                          "django.contrib.staticfiles",
                          "rest_framework",
                          "drf_spectacular",
+                         "corsheaders",
                          "links",
                          "api",
                      ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
+        "corsheaders.middleware.CorsMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.cache.UpdateCacheMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.common.CommonMiddleware",
-        "django.middleware.cache.FetchFromCacheMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.cache.FetchFromCacheMiddleware",
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
     ]
 
@@ -115,6 +117,20 @@ class Base(BaseAuthConfigurationMixin, Configuration):
 
     VERSION = "0.1.0"
 
+    # Security middleware settings
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+    CORS_URLS_REGEX = r"^/api/.*$"
+
+    @property
+    def SECURE_HSTS_SECONDS(self):
+        if self.DEBUG:
+            return 0  # disable hsts
+        else:
+            return 63072000  # enable for two years
+
     # rest framework
     REST_FRAMEWORK = {
         "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -159,6 +175,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     DB_NAME = values.Value(default="mafiasi_link_shortener")
     LINK_SHORT_LENGTH = values.IntegerValue(default=6)
     STATIC_ROOT = values.PathValue(default=BASE_DIR.parent / "static")
+    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(default=[r"^https://\w+\.mafiasi\.de$"])
 
 
 class Dev(DevAuthConfigurationMixin, Base):
@@ -175,6 +192,12 @@ class Dev(DevAuthConfigurationMixin, Base):
     ]
 
     WHITENOISE_AUTOREFRESH = True
+
+    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(default=[
+        r"^https://\w+\.mafiasi\.de$",
+        r"^http://localhost.*$",
+        r"^http://127\.0\.0\.1.*$",
+    ])
 
 
 class Prod(Base):
