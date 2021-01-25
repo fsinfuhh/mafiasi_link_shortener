@@ -15,6 +15,7 @@ django-auth-mafiasi = { ref = "v1.3.4", git = "ssh://git@git.mafiasi.de/mafiasi-
 
 [dev-packages]
 django-debug-toolbar = "*"
+black = ">20.*"
 
 [requires]
 python_version = "3"
@@ -22,3 +23,4 @@ python_version = "3"
 [scripts]
 serve = "./src/manage.py runserver"
 test = "./src/manage.py test src"
+format = "black -l 110 src"

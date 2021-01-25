@@ -8,15 +8,23 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Link',
+            name="Link",
             fields=[
-                ('short', models.CharField(db_index=True, default=links.models.link_default_short, max_length=32, primary_key=True, serialize=False)),
-                ('target', models.URLField()),
+                (
+                    "short",
+                    models.CharField(
+                        db_index=True,
+                        default=links.models.link_default_short,
+                        max_length=32,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("target", models.URLField()),
             ],
         ),
     ]

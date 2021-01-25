@@ -7,6 +7,10 @@ router = DefaultRouter()
 router.register("links", views.LinkViewset, basename="link")
 
 urlpatterns = [
-                  path("schema/", SpectacularAPIView.as_view(), name="openapi-schema"),
-                  path("schema/swagger-ui", SpectacularSwaggerView.as_view(url_name="openapi-schema"), name="swagger-ui"),
-              ] + router.urls
+    path("schema/", SpectacularAPIView.as_view(), name="openapi-schema"),
+    path(
+        "schema/swagger-ui",
+        SpectacularSwaggerView.as_view(url_name="openapi-schema"),
+        name="swagger-ui",
+    ),
+] + router.urls

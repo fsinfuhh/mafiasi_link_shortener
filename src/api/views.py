@@ -8,6 +8,4 @@ class LinkViewset(viewsets.ModelViewSet):
     lookup_field = "short"
 
     def get_queryset(self):
-        return models.Link.objects\
-            .filter(owner__exact=self.request.user)\
-            .select_related("owner")
+        return models.Link.objects.filter(owner__exact=self.request.user).select_related("owner")

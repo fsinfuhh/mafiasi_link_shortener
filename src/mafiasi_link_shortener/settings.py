@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from configurations import Configuration, values
-from django_auth_mafiasi.configuration import BaseAuthConfigurationMixin, DevAuthConfigurationMixin
+from django_auth_mafiasi.configuration import (
+    BaseAuthConfigurationMixin,
+    DevAuthConfigurationMixin,
+)
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,18 +24,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 class Base(BaseAuthConfigurationMixin, Configuration):
     # Application definition
     INSTALLED_APPS = [
-                         "django.contrib.admin",
-                         "django.contrib.auth",
-                         "django.contrib.contenttypes",
-                         "django.contrib.sessions",
-                         "django.contrib.messages",
-                         "django.contrib.staticfiles",
-                         "rest_framework",
-                         "drf_spectacular",
-                         "corsheaders",
-                         "links",
-                         "api",
-                     ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
+        "django.contrib.admin",
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+        "django.contrib.staticfiles",
+        "rest_framework",
+        "drf_spectacular",
+        "corsheaders",
+        "links",
+        "api",
+    ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
@@ -88,7 +91,9 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     def CACHES(self):
         return {
             "default": {
-                "BACKEND": "django.core.cache.backends.locmem.LocMemCache" if not self.DEBUG else "django.core.cache.backends.dummy.DummyCache"
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
+                if not self.DEBUG
+                else "django.core.cache.backends.dummy.DummyCache"
             }
         }
 
@@ -158,7 +163,6 @@ class Base(BaseAuthConfigurationMixin, Configuration):
             "name": "MIT",
             "url": "https://github.com/fsinfuhh/mafiasi_link_shortener/blob/master/LICENSE",
         },
-
         "SCHEMA_PATH_PREFIX": r"/api/",
         "COMPONENT_SPLIT_PATCH": True,
         "COMPONENT_SPLIT_REQUEST": True,
@@ -187,17 +191,17 @@ class Dev(DevAuthConfigurationMixin, Base):
 
     INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + Base.INSTALLED_APPS + ["debug_toolbar"]
     MIDDLEWARE = Base.MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-    INTERNAL_IPS = [
-        "127.0.0.1"
-    ]
+    INTERNAL_IPS = ["127.0.0.1"]
 
     WHITENOISE_AUTOREFRESH = True
 
-    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(default=[
-        r"^https://\w+\.mafiasi\.de$",
-        r"^http://localhost.*$",
-        r"^http://127\.0\.0\.1.*$",
-    ])
+    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
+        default=[
+            r"^https://\w+\.mafiasi\.de$",
+            r"^http://localhost.*$",
+            r"^http://127\.0\.0\.1.*$",
+        ]
+    )
 
 
 class Prod(Base):
