@@ -116,6 +116,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     REST_FRAMEWORK = {
         "DEFAULT_AUTHENTICATION_CLASSES": [
             "rest_framework.authentication.SessionAuthentication",
+            "django_auth_mafiasi.django_rest_framework.authentication.OpenIdAccessTokenAuthentication",
         ],
         "DEFAULT_PERMISSION_CLASSES": [
             "rest_framework.permissions.IsAuthenticated",
@@ -143,8 +144,6 @@ class Base(BaseAuthConfigurationMixin, Configuration):
         "COMPONENT_SPLIT_PATCH": True,
         "COMPONENT_SPLIT_REQUEST": True,
     }
-
-    AUTH_SCOPE = ["openid", "profile"]
 
     # Configurable properties
     SECRET_KEY = values.SecretValue()
