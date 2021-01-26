@@ -42,5 +42,5 @@ ENV DJANGO_STATIC_ROOT=/app/static
 # configure image metadata
 USER $UID:$GID
 ENTRYPOINT ["/usr/local/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
-CMD ["runserver", "0.0.0.0:80"]
-EXPOSE 80/tcp
+CMD ["runserver", "0.0.0.0:8000"]
+EXPOSE 8000/tcp
