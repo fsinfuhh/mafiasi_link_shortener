@@ -1,0 +1,19 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mafiasi-link-shortener
+spec:
+  selector:
+    matchLabels: {}
+  template:
+    spec:
+      containers:
+        - name: mafiasi-link-shortener
+          image: registry.mafiasi.de/mafiasi_link_shortener
+          envFrom:
+            - configMapRef:
+                name: config
+          ports:
+            - containerPort: 80
+              name: http
