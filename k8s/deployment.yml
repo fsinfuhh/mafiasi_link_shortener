@@ -17,3 +17,11 @@ spec:
           ports:
             - containerPort: 80
               name: http
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /auth
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /auth
