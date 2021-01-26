@@ -18,10 +18,9 @@ spec:
             - containerPort: 8000
               name: http
           livenessProbe:
-            httpGet:
+            tcpSocket:
               port: http
-              path: /auth
+            initialDelaySeconds: 45
           readinessProbe:
-            httpGet:
+            tcpSocket:
               port: http
-              path: /auth
