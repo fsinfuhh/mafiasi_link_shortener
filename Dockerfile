@@ -31,6 +31,9 @@ RUN apt-get clean -y
 ADD src /app/src/src/
 ENV PYTHONPATH=$PYTHONPATH:/app/src/src/
 RUN mkdir /app/static
+RUN chown $UID:$GID -R /app
+RUN chmod u=rX,g=rX,o=r -R /app/src
+RUN chmod u=rwX,g=rwX,o=r -R /app/static
 
 # configure docker-specifc application settings
 ENV DJANGO_CONFIGURATION=Prod
