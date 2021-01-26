@@ -122,19 +122,9 @@ class Base(BaseAuthConfigurationMixin, Configuration):
 
     VERSION = "0.1.0"
 
-    # Security middleware settings
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-
     CORS_URLS_REGEX = r"^/api/.*$"
 
-    @property
-    def SECURE_HSTS_SECONDS(self):
-        if self.DEBUG:
-            return 0  # disable hsts
-        else:
-            return 63072000  # enable for two years
+    APPEND_SLASH = True
 
     # rest framework
     REST_FRAMEWORK = {
@@ -205,4 +195,8 @@ class Dev(DevAuthConfigurationMixin, Base):
 
 
 class Prod(Base):
-    pass
+    # Security middleware settings
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_SECONDS = 63072000                  # enable for two years
