@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0225c1397c3c09f8558be1e09e37ca03bcc695bdb49ec433845717da3796822e"
+            "sha256": "f857b55723f3a169b3ae6bd55d4831d312ddd1d0d589580e458c01a68769fa6c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -168,6 +168,7 @@
             "version": "==3.1.5"
         },
         "django-auth-mafiasi": {
+            "editable": true,
             "extras": [
                 "django-configurations",
                 "djangorestframework"
@@ -332,6 +333,13 @@
             "index": "pypi",
             "version": "==2.8.6"
         },
+        "py-jwt-verifier": {
+            "hashes": [
+                "sha256:8b3839743f9f017ea0da70d9baded48c3d97c3117f217ad0389247ef17302690",
+                "sha256:dc18947e2b1cc53200de869c056661684ee73531a6d206c39bd8c17b4f1a8144"
+            ],
+            "version": "==0.7.1"
+        },
         "pycparser": {
             "hashes": [
                 "sha256:2d475327684562c3a96cc71adf7dc8c4f0565175cf86b6d7a404ff4c771f15f0",
@@ -435,6 +443,13 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==2.25.1"
+        },
+        "requests-cache": {
+            "hashes": [
+                "sha256:813023269686045f8e01e2289cc1e7e9ae5ab22ddd1e2849a9093ab3ab7270eb",
+                "sha256:81e13559baee64677a7d73b85498a5a8f0639e204517b5d05ff378e44a57831a"
+            ],
+            "version": "==0.5.2"
         },
         "six": {
             "hashes": [
