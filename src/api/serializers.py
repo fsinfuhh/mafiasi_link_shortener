@@ -14,7 +14,7 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
         min_length=6,
         max_length=32,
         default=serializers.CreateOnlyDefault(models.link_default_short),
-        validators=[validators.UniqueValidator(queryset=models.Link.objects.all())]
+        validators=[validators.UniqueValidator(queryset=models.Link.objects.all())],
     )
     owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
     target = serializers.URLField(max_length=200, required=True)

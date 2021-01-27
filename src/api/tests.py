@@ -58,10 +58,16 @@ class SerializationTestCase(TestCase):
         c = Client()
         c.force_login(self.user)
         link = models.Link.objects.create(short="test123", target="https://example.com", owner=self.user)
-        response = c.post(reverse("link-list"), data=json.dumps({
-            "short": link.short,
-            "target": "https://other.example.com",
-        }), content_type="application/json")
+        response = c.post(
+            reverse("link-list"),
+            data=json.dumps(
+                {
+                    "short": link.short,
+                    "target": "https://other.example.com",
+                }
+            ),
+            content_type="application/json",
+        )
         self.assertNotEqual(response.status_code, 201)
 
 
@@ -92,9 +98,9 @@ class PermissionTestCase(TestCase):
 
     def test_link_detail_can_only_be_accessed_by_owner(self):
         c = Client()
-        url = reverse("link-detail", kwargs={"short": self.link.short})
-        for (user, should_succeed) in [(self.user1, True), (self.user2, False)]:
+        for (user, should_succeed) in [(self.user2, False), (self.user1, True)]:
             c.force_login(user)
+            url = reverse("link-detail", kwargs={"short": self.link.short})
 
             with self.subTest(msg=f"should_succeed={should_succeed}, http get"):
                 response = c.get(url)
