@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
 from configurations import Configuration, values
 from django_auth_mafiasi.configuration import (
@@ -201,3 +203,10 @@ class Prod(Base):
     SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_SECONDS = 63072000  # enable for two years
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    @classmethod
+    def post_setup(cls):
+        sentry_sdk.init(
+            dsn="https://06d35515527f4656966a18fe203a8989@sentry.mafiasi.de/47",
+            integrations=[DjangoIntegration()],
+        )
