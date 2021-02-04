@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4803825fb9875194db6a7af5fc160801e059280d99cf68da1f5de5b8da849950"
+            "sha256": "9d3e9a48eddeb581c16fe4a26852c5c61b280be8623a1d513ff94c2402390b45"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -175,7 +175,7 @@
                 "djangorestframework"
             ],
             "git": "https://github.com/fsinfuhh/django_auth_mafiasi.git",
-            "ref": "4ed4e4a76f2edf854fb559440dc81c7860977ee5"
+            "ref": "f6226fb7a13883e5a57238e0295d5577d63a1bbf"
         },
         "django-configurations": {
             "hashes": [
