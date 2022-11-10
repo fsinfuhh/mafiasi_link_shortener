@@ -8,3 +8,5 @@ resources:
   - k8s/service.yml
 configMapGenerator:
   - name: config
+secretGenerator:
+  - name: secret
