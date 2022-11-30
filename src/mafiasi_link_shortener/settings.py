@@ -10,14 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
+
+import sentry_sdk
 from configurations import Configuration, values
 from django_auth_mafiasi.configuration import (
     BaseAuthConfigurationMixin,
     DevAuthConfigurationMixin,
 )
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -171,7 +172,9 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     DB_NAME = values.Value(default="mafiasi_link_shortener")
     LINK_SHORT_LENGTH = values.IntegerValue(default=6)
     STATIC_ROOT = values.PathValue(default=BASE_DIR.parent / "static")
-    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(default=[r"^https://\w+\.mafiasi\.de$"])
+    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
+        default=[r"^https://\w+\.mafiasi\.de$"]
+    )
 
 
 class Dev(DevAuthConfigurationMixin, Base):
@@ -181,7 +184,9 @@ class Dev(DevAuthConfigurationMixin, Base):
     DB_HOST = values.Value(default="localhost")
     DB_PASSWORD = values.Value(default="mafiasi_link_shortener")
 
-    INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + Base.INSTALLED_APPS + ["debug_toolbar"]
+    INSTALLED_APPS = (
+        ["whitenoise.runserver_nostatic"] + Base.INSTALLED_APPS + ["debug_toolbar"]
+    )
     MIDDLEWARE = Base.MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]
     INTERNAL_IPS = ["127.0.0.1"]
 

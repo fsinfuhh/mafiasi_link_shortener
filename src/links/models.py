@@ -1,8 +1,8 @@
 import random
 import string
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 
 
 def link_default_short() -> str:
@@ -17,7 +17,9 @@ def link_default_short() -> str:
 
 
 class Link(models.Model):
-    short = models.CharField(max_length=32, primary_key=True, db_index=True, default=link_default_short)
+    short = models.CharField(
+        max_length=32, primary_key=True, db_index=True, default=link_default_short
+    )
     target = models.URLField()
     owner = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,

@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
 
 import os
 
-
 # this does not currently exist but we import it to intentionally throw an error
 from configurations.asgi import get_asgi_application
 

@@ -1,7 +1,7 @@
 import json
 
-from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
+from django.test import Client, TestCase
 from django.urls import reverse
 
 from links import models
@@ -16,7 +16,9 @@ class SerializationTestCase(TestCase):
     def test_short_cannot_be_changed(self):
         c = Client()
         c.force_login(self.user)
-        link = models.Link.objects.create(short="test", target="https://example.com", owner=self.user)
+        link = models.Link.objects.create(
+            short="test", target="https://example.com", owner=self.user
+        )
         response = c.patch(
             reverse("link-detail", kwargs={"short": link.short}),
             data=json.dumps({"short": "something-different"}),
@@ -57,7 +59,9 @@ class SerializationTestCase(TestCase):
     def test_link_with_existing_short_cannot_be_created(self):
         c = Client()
         c.force_login(self.user)
-        link = models.Link.objects.create(short="test123", target="https://example.com", owner=self.user)
+        link = models.Link.objects.create(
+            short="test123", target="https://example.com", owner=self.user
+        )
         response = c.post(
             reverse("link-list"),
             data=json.dumps(
@@ -77,7 +81,9 @@ class PermissionTestCase(TestCase):
         super().setUpTestData()
         cls.user1 = get_user_model().objects.create(username="user1")
         cls.user2 = get_user_model().objects.create(username="user2")
-        cls.link = models.Link.objects.create(target="https://example.com", owner=cls.user1)
+        cls.link = models.Link.objects.create(
+            target="https://example.com", owner=cls.user1
+        )
 
     def test_noauth_api_cannot_be_accessed(self):
         c = Client()
