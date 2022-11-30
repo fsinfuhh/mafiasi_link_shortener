@@ -22,6 +22,8 @@ env.read_env(env.path("SHORTLINK_ENV_FILE", default=".env"))
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DEBUG = env.bool("SHORTLINK_DEBUG", default=False)
+
 # Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -38,6 +40,10 @@ INSTALLED_APPS = [
     "api",
 ]
 
+if DEBUG:
+    INSTALLED_APPS.insert(1, "whitenoise.runserver_nostatic")
+    INSTALLED_APPS += ["debug_toolbar"]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -51,6 +57,9 @@ MIDDLEWARE = [
     "django.middleware.cache.FetchFromCacheMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if DEBUG:
+    MIDDLEWARE.insert(3, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 ROOT_URLCONF = "mafiasi_link_shortener.urls"
 
@@ -110,6 +119,26 @@ APPEND_SLASH = True
 
 STATIC_ROOT = BASE_DIR.parent / "static"
 
+if DEBUG:
+    WHITENOISE_AUTOREFRESH = True
+
+INTERNAL_IPS = ["127.0.0.1", "::1"]
+
+if not DEBUG:
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_SECONDS = 63072000  # two years
+
+if env.bool("SHORTLINK_TRUST_REVERSE_PROXY", default=False):
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+SENTRY_DSN = env.str("SHORTLINK_SENTRY_DSN", default=None)
+if SENTRY_DSN is not None:
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+    )
+
 # rest framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -143,7 +172,6 @@ SPECTACULAR_SETTINGS = {
 
 # Configurable properties
 SECRET_KEY = env.str("SHORTLINK_SECRET_KEY")
-DEBUG = env.bool("SHORTLINK_DEBUG", default=False)
 ALLOWED_HOSTS = env.list("SHORTLINK_ALLOWED_HOSTS")
 
 LINK_SHORT_LENGTH = env.int("SHORTLINK_LINK_LENGTH", default=6)
@@ -153,47 +181,3 @@ OPENID_ISSUER = env.str(
 )
 OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
-
-# CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
-#     default=[r"^https://\w+\.mafiasi\.de$"]
-# )
-
-
-# class Dev(DevAuthConfigurationMixin, Base):
-#     SECRET_KEY = values.Value(default="DEV ONLY! DONT USE IN PRODUCTION")
-#     DEBUG = values.BooleanValue(default=True)
-#     ALLOWED_HOSTS = values.ListValue(default=["localhost", "127.0.0.1"])
-#     DB_HOST = values.Value(default="localhost")
-#     DB_PASSWORD = values.Value(default="mafiasi_link_shortener")
-#
-#     INSTALLED_APPS = (
-#         ["whitenoise.runserver_nostatic"] + Base.INSTALLED_APPS + ["debug_toolbar"]
-#     )
-#     MIDDLEWARE = Base.MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-#     INTERNAL_IPS = ["127.0.0.1"]
-#
-#     WHITENOISE_AUTOREFRESH = True
-#
-#     CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
-#         default=[
-#             r"^https://\w+\.mafiasi\.de$",
-#             r"^http://localhost.*$",
-#             r"^http://127\.0\.0\.1.*$",
-#         ]
-#     )
-
-
-# class Prod(Base):
-#     # Security middleware settings
-#     SECURE_CONTENT_TYPE_NOSNIFF = True
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#     SECURE_HSTS_PRELOAD = True
-#     SECURE_HSTS_SECONDS = 63072000  # enable for two years
-#     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-#
-#     @classmethod
-#     def post_setup(cls):
-#         sentry_sdk.init(
-#             dsn="https://06d35515527f4656966a18fe203a8989@sentry.mafiasi.de/47",
-#             integrations=[DjangoIntegration()],
-#         )
