@@ -5,23 +5,17 @@ name = "pypi"
 
 [packages]
 django = "~=3.1"
-django-configurations = "~=2.2"     # better class-based django configuration
 django-cors-headers = "~=3.6"       # support for configuring CORS headers
 djangorestframework = "~=3.12"      # api framework
 drf-spectacular = "~=0.13"          # openapi schema generation
+environs = { version = "~=9.5", extras = ["django"] }           # parse configuration from environment variables
 psycopg2-binary = "~=2.8"           # database driver for django
+sentry-sdk = "~=0.14"               # error reporting
+simple-openid-connect = "~=0.1"     # authentication with mafiasi identity
 whitenoise = { version = "~=5.2", extras = ["brotli"] }         # better staticfile serving for django
-django-auth-mafiasi = { editable = true, ref = "v1.3.5", git = "https://github.com/fsinfuhh/django_auth_mafiasi.git", extras = ["djangorestframework", "django-configurations"] }
-sentry-sdk = "~=0.14"
 
 [dev-packages]
 django-debug-toolbar = "*"
-black = ">20.*"
 
 [requires]
 python_version = "3"
-
-[scripts]
-serve = "./src/manage.py runserver"
-test = "./src/manage.py test src"
-format = "black -l 110 src"

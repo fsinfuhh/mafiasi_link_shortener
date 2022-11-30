@@ -13,205 +13,187 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 import sentry_sdk
-from configurations import Configuration, values
-from django_auth_mafiasi.configuration import (
-    BaseAuthConfigurationMixin,
-    DevAuthConfigurationMixin,
-)
+from environs import Env
 from sentry_sdk.integrations.django import DjangoIntegration
+
+env = Env()
+env.read_env(env.path("SHORTLINK_ENV_FILE", default=".env"))
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Application definition
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "drf_spectacular",
+    "simple_openid_connect.integrations.django",
+    "corsheaders",
+    "links",
+    "api",
+]
 
-class Base(BaseAuthConfigurationMixin, Configuration):
-    # Application definition
-    INSTALLED_APPS = [
-        "django.contrib.admin",
-        "django.contrib.auth",
-        "django.contrib.contenttypes",
-        "django.contrib.sessions",
-        "django.contrib.messages",
-        "django.contrib.staticfiles",
-        "rest_framework",
-        "drf_spectacular",
-        "corsheaders",
-        "links",
-        "api",
-    ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
 
-    MIDDLEWARE = [
-        "django.middleware.security.SecurityMiddleware",
-        "corsheaders.middleware.CorsMiddleware",
-        "whitenoise.middleware.WhiteNoiseMiddleware",
-        "django.middleware.cache.UpdateCacheMiddleware",
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.middleware.common.CommonMiddleware",
-        "django.middleware.csrf.CsrfViewMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware",
-        "django.middleware.cache.FetchFromCacheMiddleware",
-        "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    ]
+ROOT_URLCONF = "mafiasi_link_shortener.urls"
 
-    ROOT_URLCONF = "mafiasi_link_shortener.urls"
-
-    TEMPLATES = [
-        {
-            "BACKEND": "django.template.backends.django.DjangoTemplates",
-            "DIRS": [],
-            "APP_DIRS": True,
-            "OPTIONS": {
-                "context_processors": [
-                    "django.template.context_processors.debug",
-                    "django.template.context_processors.request",
-                    "django.contrib.auth.context_processors.auth",
-                    "django.contrib.messages.context_processors.messages",
-                ],
-            },
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
         },
-    ]
+    },
+]
 
-    WSGI_APPLICATION = "mafiasi_link_shortener.wsgi.application"
+WSGI_APPLICATION = "mafiasi_link_shortener.wsgi.application"
 
-    # Database
-    # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-    @property
-    def DATABASES(self):
-        return {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql_psycopg2",
-                "HOST": self.DB_HOST,
-                "PORT": self.DB_PORT,
-                "USER": self.DB_USER,
-                "PASSWORD": self.DB_PASSWORD,
-                "NAME": self.DB_NAME,
-            }
-        }
+DATABASES = {"default": env.dj_db_url("SHORTLINK_DB")}
 
-    @property
-    def CACHES(self):
-        return {
-            "default": {
-                "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
-                if not self.DEBUG
-                else "django.core.cache.backends.dummy.DummyCache"
-            }
-        }
+CACHES = {"default": env.dj_cache_url("SHORTLINK_CACHE", default="dummy://")}
 
-    # Internationalization
-    # https://docs.djangoproject.com/en/3.1/topics/i18n/
+# Internationalization
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-    LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-us"
 
-    TIME_ZONE = "Europe/Berlin"
+TIME_ZONE = "Europe/Berlin"
 
-    USE_I18N = True
+USE_I18N = True
 
-    USE_L10N = True
+USE_L10N = True
 
-    USE_TZ = True
+USE_TZ = True
 
-    # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/3.1/howto/static-files/
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-    STATIC_URL = "/static/"
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    WHITENOISE_ROOT = BASE_DIR / "mafiasi_link_shortener" / "root_static"
+STATIC_URL = "/static/"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+WHITENOISE_ROOT = BASE_DIR / "mafiasi_link_shortener" / "root_static"
 
-    LOGIN_REDIRECT_URL = "swagger-ui"
-    LOGIN_URL = "/auth/"
+LOGIN_REDIRECT_URL = "swagger-ui"
+LOGIN_URL = "/auth/"
 
-    VERSION = "0.1.0"
+VERSION = "0.1.0"
 
-    CORS_URLS_REGEX = r"^/api/.*$"
+CORS_URLS_REGEX = r"^/api/.*$"
 
-    APPEND_SLASH = True
+APPEND_SLASH = True
 
-    # rest framework
-    REST_FRAMEWORK = {
-        "DEFAULT_AUTHENTICATION_CLASSES": [
-            "rest_framework.authentication.SessionAuthentication",
-            "django_auth_mafiasi.django_rest_framework.authentication.OpenIdAccessTokenAuthentication",
-        ],
-        "DEFAULT_PERMISSION_CLASSES": [
-            "rest_framework.permissions.IsAuthenticated",
-        ],
-        "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-        "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-        "PAGE_SIZE": 100,
-    }
+STATIC_ROOT = BASE_DIR.parent / "static"
 
-    # openapi schema settings
-    # todo add oidc connect authorization documentation
-    SPECTACULAR_SETTINGS = {
-        "TITLE": "Mafiasi Link Shortener",
-        "CONTACT": {
-            "name": "Server-Ag",
-            "email": "ag-server@informatik.uni-hamburg.de",
-        },
-        "VERSION": VERSION,
-        "LICENSE": {
-            "name": "MIT",
-            "url": "https://github.com/fsinfuhh/mafiasi_link_shortener/blob/master/LICENSE",
-        },
-        "SCHEMA_PATH_PREFIX": r"/api/",
-        "COMPONENT_SPLIT_PATCH": True,
-        "COMPONENT_SPLIT_REQUEST": True,
-    }
+# rest framework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 100,
+}
 
-    # Configurable properties
-    SECRET_KEY = values.SecretValue()
-    DEBUG = values.BooleanValue(default=False)
-    ALLOWED_HOSTS = values.ListValue(environ_required=True)
-    DB_HOST = values.Value(environ_required=True)
-    DB_PORT = values.Value(default=5432)
-    DB_USER = values.Value(default="mafiasi_link_shortener")
-    DB_PASSWORD = values.SecretValue()
-    DB_NAME = values.Value(default="mafiasi_link_shortener")
-    LINK_SHORT_LENGTH = values.IntegerValue(default=6)
-    STATIC_ROOT = values.PathValue(default=BASE_DIR.parent / "static")
-    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
-        default=[r"^https://\w+\.mafiasi\.de$"]
-    )
+# openapi schema settings
+# todo add oidc connect authorization documentation
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Mafiasi Link Shortener",
+    "CONTACT": {
+        "name": "Server-Ag",
+        "email": "ag-server@informatik.uni-hamburg.de",
+    },
+    "VERSION": VERSION,
+    "LICENSE": {
+        "name": "MIT",
+        "url": "https://github.com/fsinfuhh/mafiasi_link_shortener/blob/master/LICENSE",
+    },
+    "SCHEMA_PATH_PREFIX": r"/api/",
+    "COMPONENT_SPLIT_PATCH": True,
+    "COMPONENT_SPLIT_REQUEST": True,
+}
+
+# Configurable properties
+SECRET_KEY = env.str("SHORTLINK_SECRET_KEY")
+DEBUG = env.bool("SHORTLINK_DEBUG", default=False)
+ALLOWED_HOSTS = env.list("SHORTLINK_ALLOWED_HOSTS")
+
+LINK_SHORT_LENGTH = env.int("SHORTLINK_LINK_LENGTH", default=6)
+
+OPENID_ISSUER = env.str(
+    "SHORTLINK_OPENID_ISSUER", default="https://identity.mafiasi.de/auth/realms/mafiasi"
+)
+OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
+OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
+
+# CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
+#     default=[r"^https://\w+\.mafiasi\.de$"]
+# )
 
 
-class Dev(DevAuthConfigurationMixin, Base):
-    SECRET_KEY = values.Value(default="DEV ONLY! DONT USE IN PRODUCTION")
-    DEBUG = values.BooleanValue(default=True)
-    ALLOWED_HOSTS = values.ListValue(default=["localhost", "127.0.0.1"])
-    DB_HOST = values.Value(default="localhost")
-    DB_PASSWORD = values.Value(default="mafiasi_link_shortener")
+# class Dev(DevAuthConfigurationMixin, Base):
+#     SECRET_KEY = values.Value(default="DEV ONLY! DONT USE IN PRODUCTION")
+#     DEBUG = values.BooleanValue(default=True)
+#     ALLOWED_HOSTS = values.ListValue(default=["localhost", "127.0.0.1"])
+#     DB_HOST = values.Value(default="localhost")
+#     DB_PASSWORD = values.Value(default="mafiasi_link_shortener")
+#
+#     INSTALLED_APPS = (
+#         ["whitenoise.runserver_nostatic"] + Base.INSTALLED_APPS + ["debug_toolbar"]
+#     )
+#     MIDDLEWARE = Base.MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+#     INTERNAL_IPS = ["127.0.0.1"]
+#
+#     WHITENOISE_AUTOREFRESH = True
+#
+#     CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
+#         default=[
+#             r"^https://\w+\.mafiasi\.de$",
+#             r"^http://localhost.*$",
+#             r"^http://127\.0\.0\.1.*$",
+#         ]
+#     )
 
-    INSTALLED_APPS = (
-        ["whitenoise.runserver_nostatic"] + Base.INSTALLED_APPS + ["debug_toolbar"]
-    )
-    MIDDLEWARE = Base.MIDDLEWARE + ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-    INTERNAL_IPS = ["127.0.0.1"]
 
-    WHITENOISE_AUTOREFRESH = True
-
-    CORS_ALLOWED_ORIGIN_REGEXES = values.ListValue(
-        default=[
-            r"^https://\w+\.mafiasi\.de$",
-            r"^http://localhost.*$",
-            r"^http://127\.0\.0\.1.*$",
-        ]
-    )
-
-
-class Prod(Base):
-    # Security middleware settings
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SECURE_HSTS_SECONDS = 63072000  # enable for two years
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-    @classmethod
-    def post_setup(cls):
-        sentry_sdk.init(
-            dsn="https://06d35515527f4656966a18fe203a8989@sentry.mafiasi.de/47",
-            integrations=[DjangoIntegration()],
-        )
+# class Prod(Base):
+#     # Security middleware settings
+#     SECURE_CONTENT_TYPE_NOSNIFF = True
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#     SECURE_HSTS_PRELOAD = True
+#     SECURE_HSTS_SECONDS = 63072000  # enable for two years
+#     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+#
+#     @classmethod
+#     def post_setup(cls):
+#         sentry_sdk.init(
+#             dsn="https://06d35515527f4656966a18fe203a8989@sentry.mafiasi.de/47",
+#             integrations=[DjangoIntegration()],
+#         )

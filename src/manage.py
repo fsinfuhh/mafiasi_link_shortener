@@ -7,9 +7,9 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mafiasi_link_shortener.settings")
-    os.environ.setdefault("DJANGO_CONFIGURATION", "Dev")
+    os.environ.setdefault("SHORTLINK_ENV_FILE", ".env.dev")
     try:
-        from configurations.management import execute_from_command_line
+        from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "

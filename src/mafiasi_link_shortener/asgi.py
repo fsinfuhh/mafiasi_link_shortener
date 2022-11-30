@@ -9,10 +9,9 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
 
 import os
 
-# this does not currently exist but we import it to intentionally throw an error
-from configurations.asgi import get_asgi_application
+from django.core.asgi import get_asgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mafiasi_link_shortener.settings")
-os.environ.setdefault("DJANGO_CONFIGURATION", "Dev")
+os.environ.setdefault("SHORTLINK_ENV_FILE", ".env.dev")
 
 application = get_asgi_application()
