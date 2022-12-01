@@ -1,7 +1,14 @@
 #!/usr/bin/env sh
 set -e
 
+echo "Collecting staticfiles"
 /app/src/src/manage.py collectstatic --noinput
+
+echo "Migrating database"
 /app/src/src/manage.py migrate
+
+echo "Performing system checks"
 /app/src/src/manage.py check --deploy
+
+echo "Starting server"
 /app/src/src/manage.py "$@"
