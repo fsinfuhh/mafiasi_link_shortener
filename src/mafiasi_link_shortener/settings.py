@@ -118,7 +118,7 @@ CORS_URLS_REGEX = r"^/api/.*$"
 
 APPEND_SLASH = True
 
-STATIC_ROOT = BASE_DIR.parent / "static"
+STATIC_ROOT = env.path("SHORTLINK_STATIC_ROOT", default=BASE_DIR.parent / "static")
 
 if DEBUG:
     WHITENOISE_AUTOREFRESH = True
