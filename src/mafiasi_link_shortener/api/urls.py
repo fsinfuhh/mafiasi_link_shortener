@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from drf_spectacular_sidecar.views import SwaggerOauthRedirectView
 from rest_framework.routers import DefaultRouter
@@ -9,6 +10,7 @@ router = DefaultRouter()
 router.register("links", views.LinkViewset, basename="link")
 
 urlpatterns = [
+    path("", RedirectView.as_view(url="schema/swagger-ui/")),
     path("schema/", SpectacularAPIView.as_view(), name="openapi-schema"),
     path(
         "schema/swagger-ui/",
