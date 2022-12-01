@@ -125,6 +125,8 @@ if DEBUG:
 
 INTERNAL_IPS = ["127.0.0.1", "::1"]
 
+AUTH_USER_MODEL = "links.MafiasiUser"
+
 if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True

@@ -2,6 +2,7 @@ import random
 import string
 
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -14,6 +15,10 @@ def link_default_short() -> str:
     alphabet = [i for i in string.ascii_lowercase + string.digits if i not in "ol"]
     # pick k random letters and concatenate them
     return "".join(random.choices(alphabet, k=settings.LINK_SHORT_LENGTH))
+
+
+class MafiasiUser(AbstractUser):
+    pass
 
 
 class Link(models.Model):
