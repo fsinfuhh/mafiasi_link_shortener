@@ -184,7 +184,9 @@ SPECTACULAR_SETTINGS = {
         "clientSecret": "public-secret",
         "scopes": OPENID_SCOPE,
         "useBasicAuthenticationWithAccessCodeGrant": True,
-    } if DEBUG else {
+    }
+    if DEBUG
+    else {
         "scopes": OPENID_SCOPE,
     },
 }
