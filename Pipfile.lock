@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2f86dc8f1c943f56bf3608997ead7b755ee428a7591dc94c7114f2e36f7c662c"
+            "sha256": "f87c9117b6e6d65027a6c1b525a3f264bb1f61fbc0fdf7b03cd6746c8db54497"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -603,12 +603,13 @@
             "version": "==0.20.3"
         },
         "simple-openid-connect": {
+            "editable": true,
+            "git": "https://github.com/fsinfuhh/py_simple_openid_connect.git",
             "hashes": [
                 "sha256:54fd22e9155c9301fabaeb2cc03f5ca5e8a1e8ddc0bb4cf37d10fd4ea037c3e2",
                 "sha256:79995a710df841f06069e84d3e95d111a67e6207c0887face026a53ff664bb69"
             ],
-            "index": "pypi",
-            "version": "==0.1.1"
+            "ref": "4910b5dceab22d88d8b30939e60ea51b4563e205"
         },
         "six": {
             "hashes": [

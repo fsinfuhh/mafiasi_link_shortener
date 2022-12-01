@@ -11,8 +11,8 @@ drf-spectacular = "~=0.13"          # openapi schema generation
 environs = { version = "~=9.5", extras = ["django"] }           # parse configuration from environment variables
 psycopg2-binary = "~=2.8"           # database driver for django
 sentry-sdk = "~=0.14"               # error reporting
-simple-openid-connect = "~=0.1"     # authentication with mafiasi identity
 whitenoise = { version = "~=5.2", extras = ["brotli"] }         # better staticfile serving for django
+simple-openid-connect = {editable = true, git = "https://github.com/fsinfuhh/py_simple_openid_connect.git"}
 
 [dev-packages]
 django-debug-toolbar = "*"
