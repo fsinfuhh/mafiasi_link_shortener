@@ -15,7 +15,7 @@ simple-openid-connect = "~=0.1.2"                               # mafiasi identi
 
 # can be replaced once a version >0.24.2 is released for https://github.com/tfranzel/drf-spectacular/pull/882
 #drf-spectacular = { version = "~=0.24", extras = ["sidecar"] }  # openapi schema generation
-drf-spectacular = { git = "https://github.com/tfranzel/drf-spectacular.git", ref = "master", editable = true }
+drf-spectacular = { git = "https://github.com/tfranzel/drf-spectacular.git", ref = "master", editable = true, extras = ["sidecar"] }
 
 [dev-packages]
 django-debug-toolbar = "*"
