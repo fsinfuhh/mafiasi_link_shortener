@@ -1,3 +1,5 @@
+from django.templatetags.static import static
+from django.views.generic import RedirectView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
@@ -5,6 +7,14 @@ from links import models
 
 from . import serializers
 from .permissions import IsOwner
+
+
+class SwaggerRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return (
+            static("drf_spectacular_sidecar/swagger-ui-dist/oauth2-redirect.html")
+            + f"?{self.request.GET.urlencode()}"
+        )
 
 
 class LinkViewset(viewsets.ModelViewSet):

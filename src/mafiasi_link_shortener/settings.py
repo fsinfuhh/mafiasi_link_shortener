@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_spectacular",
+    "drf_spectacular_sidecar",
     "simple_openid_connect.integrations.django",
     "corsheaders",
     "links",
@@ -139,13 +140,21 @@ if SENTRY_DSN is not None:
         integrations=[DjangoIntegration()],
     )
 
+# openid authentication
+OPENID_ISSUER = env.str(
+    "SHORTLINK_OPENID_ISSUER", default="https://identity.mafiasi.de/auth/realms/mafiasi"
+)
+OPENID_SCOPE = "openid shortlinks"
+OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
+OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
+
 # rest framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "simple_openid_connect.integrations.djangorestframework.authentication.AccessTokenAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
-        "simple_openid_connect.integrations.djangorestframework.permissions.HasTokenScopePermission",
+        "simple_openid_connect.integrations.djangorestframework.permissions.HasTokenScope",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
@@ -168,6 +177,15 @@ SPECTACULAR_SETTINGS = {
     "SCHEMA_PATH_PREFIX": r"/api/",
     "COMPONENT_SPLIT_PATCH": True,
     "COMPONENT_SPLIT_REQUEST": True,
+    "SWAGGER_UI_DIST": "SIDECAR",
+    "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
+    "SWAGGER_UI_SETTINGS": {},
+    "SWAGGER_UI_OAUTH2_CONFIG": {
+        "clientId": "dev-client",
+        "clientSecret": "public-secret",
+        "scopes": OPENID_SCOPE,
+        "useBasicAuthenticationWithAccessCodeGrant": False,
+    },
 }
 
 # Configurable properties
@@ -175,10 +193,3 @@ SECRET_KEY = env.str("SHORTLINK_SECRET_KEY")
 ALLOWED_HOSTS = env.list("SHORTLINK_ALLOWED_HOSTS")
 
 LINK_SHORT_LENGTH = env.int("SHORTLINK_LINK_LENGTH", default=6)
-
-OPENID_ISSUER = env.str(
-    "SHORTLINK_OPENID_ISSUER", default="https://identity.mafiasi.de/auth/realms/mafiasi"
-)
-OPENID_SCOPE = "openid shortlinks"
-OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
-OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")

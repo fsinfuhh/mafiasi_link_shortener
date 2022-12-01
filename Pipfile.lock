@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f87c9117b6e6d65027a6c1b525a3f264bb1f61fbc0fdf7b03cd6746c8db54497"
+            "sha256": "bd03b3273645059bc5cc30fa69ee30e6d1d140467e444488487e69ea09a35d06"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -290,12 +290,23 @@
             "version": "==3.14.0"
         },
         "drf-spectacular": {
+            "extras": [
+                "sidecar"
+            ],
             "hashes": [
                 "sha256:b276e6f7bda6dfb911e742dab87c6e97bc67da2dafe82d6fd8df7cec6c8b03ec",
                 "sha256:be32417594080a52f996afd83fd47ea9c2b83cbf13f6d3fbf3de809a0dfa7ead"
             ],
             "index": "pypi",
+            "markers": null,
             "version": "==0.24.2"
+        },
+        "drf-spectacular-sidecar": {
+            "hashes": [
+                "sha256:46614fb4eff1bccbac176d74bd76e0240ab459dc62d9fd8b9d4d1479fb76ba0a",
+                "sha256:503860a34d4215d6b3c46d54b90d991dd0d202363e3b69b832348f08e4a8634b"
+            ],
+            "version": "==2022.11.1"
         },
         "environs": {
             "extras": [
@@ -604,12 +615,7 @@
         },
         "simple-openid-connect": {
             "editable": true,
-            "git": "https://github.com/fsinfuhh/py_simple_openid_connect.git",
-            "hashes": [
-                "sha256:54fd22e9155c9301fabaeb2cc03f5ca5e8a1e8ddc0bb4cf37d10fd4ea037c3e2",
-                "sha256:79995a710df841f06069e84d3e95d111a67e6207c0887face026a53ff664bb69"
-            ],
-            "ref": "4910b5dceab22d88d8b30939e60ea51b4563e205"
+            "path": "/home/ftsell/Projects/mafiasi/py_simple_openid_connect"
         },
         "six": {
             "hashes": [

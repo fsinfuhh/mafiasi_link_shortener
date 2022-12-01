@@ -5,12 +5,12 @@ name = "pypi"
 
 [packages]
 django = "~=3.1"
-django-cors-headers = "~=3.6"       # support for configuring CORS headers
-djangorestframework = "~=3.12"      # api framework
-drf-spectacular = "~=0.13"          # openapi schema generation
+django-cors-headers = "~=3.6"                                   # support for configuring CORS headers
+djangorestframework = "~=3.12"                                  # api framework
+drf-spectacular = { version = "~=0.13", extras = ["sidecar"] }  # openapi schema generation
 environs = { version = "~=9.5", extras = ["django"] }           # parse configuration from environment variables
-psycopg2-binary = "~=2.8"           # database driver for django
-sentry-sdk = "~=0.14"               # error reporting
+psycopg2-binary = "~=2.8"                                       # database driver for postgres
+sentry-sdk = "~=0.14"                                           # error reporting
 whitenoise = { version = "~=5.2", extras = ["brotli"] }         # better staticfile serving for django
 simple-openid-connect = {editable = true, git = "https://github.com/fsinfuhh/py_simple_openid_connect.git"}
 
