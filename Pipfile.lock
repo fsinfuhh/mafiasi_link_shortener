@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0effd6c8fe781306380b453fab6f2be3718f78ccbbc2776353950ed151c9f14d"
+            "sha256": "104176dfed325376301da1283d241e77dbc8b2bacf394960cb2bf416e8cf15f3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -616,8 +616,12 @@
             "version": "==0.20.3"
         },
         "simple-openid-connect": {
-            "editable": true,
-            "path": "/home/ftsell/Projects/mafiasi/py_simple_openid_connect"
+            "hashes": [
+                "sha256:10c08ede629ed32c805c5481af6196676628ad1932fac118de9e7d9c75f7478a",
+                "sha256:95e4fd2954f84072e70f53e3688bff98264a520245c8bd2aaf6ee8887619d91d"
+            ],
+            "index": "pypi",
+            "version": "==0.1.2"
         },
         "six": {
             "hashes": [
