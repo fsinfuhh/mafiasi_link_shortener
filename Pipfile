@@ -12,7 +12,10 @@ environs = { version = "~=9.5", extras = ["django"] }           # parse configur
 psycopg2-binary = "~=2.8"                                       # database driver for postgres
 sentry-sdk = "~=0.14"                                           # error reporting
 whitenoise = { version = "~=5.2", extras = ["brotli"] }         # better staticfile serving for django
-simple-openid-connect = {editable = true, git = "https://github.com/fsinfuhh/py_simple_openid_connect.git"}
+simple-openid-connect = { editable = true, git = "https://github.com/fsinfuhh/py_simple_openid_connect.git" }
+
+# can be removed once PR is merged: https://github.com/tfranzel/drf-spectacular-sidecar/pull/5
+drf-spectacular-sidecar = { git = "https://github.com/ftsell/drf-spectacular-sidecar.git", ref = "feature/swagger_ui_oauth_callback", editable = true }
 
 [dev-packages]
 django-debug-toolbar = "*"

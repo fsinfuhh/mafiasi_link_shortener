@@ -147,6 +147,7 @@ OPENID_ISSUER = env.str(
 OPENID_SCOPE = "openid shortlinks"
 OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
+OPENID_REDIRECT_URI = None
 
 # rest framework
 REST_FRAMEWORK = {
@@ -162,7 +163,6 @@ REST_FRAMEWORK = {
 }
 
 # openapi schema settings
-# todo add oidc connect authorization documentation
 SPECTACULAR_SETTINGS = {
     "TITLE": "Mafiasi Link Shortener",
     "CONTACT": {
@@ -179,12 +179,13 @@ SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "SWAGGER_UI_DIST": "SIDECAR",
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
-    "SWAGGER_UI_SETTINGS": {},
     "SWAGGER_UI_OAUTH2_CONFIG": {
         "clientId": "dev-client",
         "clientSecret": "public-secret",
         "scopes": OPENID_SCOPE,
-        "useBasicAuthenticationWithAccessCodeGrant": False,
+        "useBasicAuthenticationWithAccessCodeGrant": True,
+    } if DEBUG else {
+        "scopes": OPENID_SCOPE,
     },
 }
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bd03b3273645059bc5cc30fa69ee30e6d1d140467e444488487e69ea09a35d06"
+            "sha256": "0effd6c8fe781306380b453fab6f2be3718f78ccbbc2776353950ed151c9f14d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -302,11 +302,13 @@
             "version": "==0.24.2"
         },
         "drf-spectacular-sidecar": {
+            "editable": true,
+            "git": "https://github.com/ftsell/drf-spectacular-sidecar.git",
             "hashes": [
                 "sha256:46614fb4eff1bccbac176d74bd76e0240ab459dc62d9fd8b9d4d1479fb76ba0a",
                 "sha256:503860a34d4215d6b3c46d54b90d991dd0d202363e3b69b832348f08e4a8634b"
             ],
-            "version": "==2022.11.1"
+            "ref": "cc8ef18a48349fe1052e34f8402ca5cc120b6f2a"
         },
         "environs": {
             "extras": [
