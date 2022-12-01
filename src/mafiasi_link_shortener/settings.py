@@ -26,6 +26,7 @@ DEBUG = env.bool("SHORTLINK_DEBUG", default=False)
 
 # Application definition
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS.insert(1, "whitenoise.runserver_nostatic")
     INSTALLED_APPS += ["debug_toolbar"]
 
 MIDDLEWARE = [
