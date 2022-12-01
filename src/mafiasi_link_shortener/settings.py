@@ -106,7 +106,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 WHITENOISE_ROOT = BASE_DIR / "mafiasi_link_shortener" / "root_static"
 
 LOGIN_REDIRECT_URL = "swagger-ui"
@@ -119,9 +118,6 @@ CORS_URLS_REGEX = r"^/api/.*$"
 APPEND_SLASH = True
 
 STATIC_ROOT = env.path("SHORTLINK_STATIC_ROOT", default=BASE_DIR.parent / "static")
-
-if DEBUG:
-    WHITENOISE_AUTOREFRESH = True
 
 INTERNAL_IPS = ["127.0.0.1", "::1"]
 
