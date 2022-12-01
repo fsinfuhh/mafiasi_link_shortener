@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "104176dfed325376301da1283d241e77dbc8b2bacf394960cb2bf416e8cf15f3"
+            "sha256": "b52da0ed0f6aa264b4b23c23dc9e82a1f14f34050eec71296c61d718fdc5e76d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -290,25 +290,14 @@
             "version": "==3.14.0"
         },
         "drf-spectacular": {
-            "extras": [
-                "sidecar"
-            ],
+            "editable": true,
+            "extras": [],
+            "git": "https://github.com/tfranzel/drf-spectacular.git",
             "hashes": [
                 "sha256:b276e6f7bda6dfb911e742dab87c6e97bc67da2dafe82d6fd8df7cec6c8b03ec",
                 "sha256:be32417594080a52f996afd83fd47ea9c2b83cbf13f6d3fbf3de809a0dfa7ead"
             ],
-            "index": "pypi",
-            "markers": null,
-            "version": "==0.24.2"
-        },
-        "drf-spectacular-sidecar": {
-            "editable": true,
-            "git": "https://github.com/ftsell/drf-spectacular-sidecar.git",
-            "hashes": [
-                "sha256:46614fb4eff1bccbac176d74bd76e0240ab459dc62d9fd8b9d4d1479fb76ba0a",
-                "sha256:503860a34d4215d6b3c46d54b90d991dd0d202363e3b69b832348f08e4a8634b"
-            ],
-            "ref": "cc8ef18a48349fe1052e34f8402ca5cc120b6f2a"
+            "ref": "a5649bf22bc39e744778ec3f0862d6bf27d7560e"
         },
         "environs": {
             "extras": [

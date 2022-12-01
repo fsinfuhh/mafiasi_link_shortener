@@ -7,15 +7,15 @@ name = "pypi"
 django = "~=3.1"
 django-cors-headers = "~=3.6"                                   # support for configuring CORS headers
 djangorestframework = "~=3.12"                                  # api framework
-drf-spectacular = { version = "~=0.13", extras = ["sidecar"] }  # openapi schema generation
 environs = { version = "~=9.5", extras = ["django"] }           # parse configuration from environment variables
 psycopg2-binary = "~=2.8"                                       # database driver for postgres
 sentry-sdk = "~=0.14"                                           # error reporting
 whitenoise = { version = "~=5.2", extras = ["brotli"] }         # better staticfile serving for django
 simple-openid-connect = "~=0.1.2"                               # mafiasi identity authentication
 
-# can be removed once PR is merged: https://github.com/tfranzel/drf-spectacular-sidecar/pull/5
-drf-spectacular-sidecar = { git = "https://github.com/ftsell/drf-spectacular-sidecar.git", ref = "feature/swagger_ui_oauth_callback", editable = true }
+# can be replaced once a version >0.24.2 is released for https://github.com/tfranzel/drf-spectacular/pull/882
+#drf-spectacular = { version = "~=0.24", extras = ["sidecar"] }  # openapi schema generation
+drf-spectacular = { git = "https://github.com/tfranzel/drf-spectacular.git", ref = "master", editable = true }
 
 [dev-packages]
 django-debug-toolbar = "*"

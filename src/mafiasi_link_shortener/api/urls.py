@@ -1,7 +1,10 @@
 from django.urls import path
 from django.views.generic import RedirectView
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from drf_spectacular_sidecar.views import SwaggerOauthRedirectView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerOauthRedirectView,
+    SpectacularSwaggerView,
+)
 from rest_framework.routers import DefaultRouter
 
 from . import views
@@ -19,7 +22,7 @@ urlpatterns = [
     ),
     path(
         "schema/swagger-ui/oauth2-redirect.html",
-        SwaggerOauthRedirectView.as_view(),
+        SpectacularSwaggerOauthRedirectView.as_view(),
         name="swagger-ui-openid-redirect",
     ),
 ] + router.urls
