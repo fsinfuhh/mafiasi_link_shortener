@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     "drf_spectacular_sidecar",
     "simple_openid_connect.integrations.django",
     "corsheaders",
-    "links",
-    "api",
+    "mafiasi_link_shortener.links",
+    "mafiasi_link_shortener.api",
 ]
 
 if DEBUG:

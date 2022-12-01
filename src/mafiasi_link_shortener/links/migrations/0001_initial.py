@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-import links.models
+import mafiasi_link_shortener.links.models
 
 
 class Migration(migrations.Migration):
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                     "short",
                     models.CharField(
                         db_index=True,
-                        default=links.models.link_default_short,
+                        default=mafiasi_link_shortener.links.models.link_default_short,
                         max_length=32,
                         primary_key=True,
                         serialize=False,

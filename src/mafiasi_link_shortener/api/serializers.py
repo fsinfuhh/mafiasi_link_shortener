@@ -1,6 +1,6 @@
 from rest_framework import serializers, validators
 
-from links import models
+from mafiasi_link_shortener.links import models
 
 
 class LinkSerializer(serializers.HyperlinkedModelSerializer):

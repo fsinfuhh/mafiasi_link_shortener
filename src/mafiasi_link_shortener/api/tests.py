@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from links import models
+from mafiasi_link_shortener.links import models
 
 
 class SerializationTestCase(TestCase):
