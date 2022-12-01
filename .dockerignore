@@ -1,5 +1,5 @@
 **/__pycache__
 .idea
 static
-db.sqlite3
-.env.dev
+src/db.sqlite3
+src/.env.dev

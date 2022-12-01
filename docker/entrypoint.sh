@@ -11,4 +11,5 @@ echo "Performing system checks"
 /app/src/src/manage.py check --deploy
 
 echo "Starting server"
-/app/src/src/manage.py "$@"
+export PYTHONPATH="$PYTHONPATH:/app/src/src"
+exec "$@"

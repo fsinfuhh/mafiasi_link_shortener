@@ -1,6 +1,7 @@
 FROM docker.io/python:3.9-slim
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update &&\
-    apt-get install -y --no-install-recommends git && \
+    apt-get install -y --no-install-recommends git gunicorn && \
     pip3 install --no-cache-dir pipenv
 
 ARG UID=10001
@@ -41,5 +42,5 @@ ENV SHORTLINK_STATIC_ROOT=/app/static
 # configure image metadata
 USER $UID:$GID
 ENTRYPOINT ["/usr/local/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
-CMD ["runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "--bind=0.0.0.0:8000", "--workers=4", "--threads=4", "mafiasi_link_shortener.wsgi:application"]
 EXPOSE 8000/tcp
