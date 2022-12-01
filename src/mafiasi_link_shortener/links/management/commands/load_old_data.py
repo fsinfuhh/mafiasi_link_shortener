@@ -18,9 +18,8 @@ class Command(BaseCommand):
         parser.add_argument("fixture", help="the path to the dumped database fixture")
 
     def handle(self, *args, **options):
-        fixture_path = Path(options["fixture"]).resolve()
-        logger.info("loading database fixture %s", fixture_path)
-        with open(fixture_path, "r", encoding="UTF-8") as f:
+        logger.info("loading database fixture %s", options["fixture"])
+        with open(options["fixture"], "r", encoding="UTF-8") as f:
             fixture_json = json.load(f)
 
         # re-add users
