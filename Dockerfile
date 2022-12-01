@@ -1,8 +1,8 @@
 FROM docker.io/python:3.9-slim
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update &&\
-    apt-get install -y --no-install-recommends git gunicorn && \
-    pip3 install --no-cache-dir pipenv
+    apt-get install -y --no-install-recommends git && \
+    pip3 install --no-cache-dir pipenv gunicorn
 
 ARG UID=10001
 ARG GID=10001
