@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { useAuthenticatedUser } from "@/auth";
-import { watchEffect } from "vue";
 
 const user = useAuthenticatedUser();
-
-watchEffect(() => {
-  console.log(user.value);
-});
 </script>
 
 <template>
