@@ -33,6 +33,13 @@ function removeCallbackInfoFromUrl(): void {
  */
 // @ts-ignore
 export async function getUserOrLogin(userManager: UserManager): Promise<User | never> {
+  // try to load cached user
+  const user = await userManager.getUser();
+  if (user != null) {
+    return user;
+  }
+
+  // try to parse authentication callback information
   try {
     // try to fetch the user from authentication result
     const user = await userManager.signinRedirectCallback();
@@ -42,11 +49,7 @@ export async function getUserOrLogin(userManager: UserManager): Promise<User | n
     const error = e as Error;
 
     if (error.message == "No state in response") {
-      // no user is known and no callback state in current url
-      await userManager.signinRedirect();
-    } else if (error.message == "No matching state found in storage") {
-      // there is callback info in the current url, but it is not valid
-      removeCallbackInfoFromUrl();
+      // no user is known and no callback state in current url, so initiate a login
       await userManager.signinRedirect();
     } else {
       throw e;
