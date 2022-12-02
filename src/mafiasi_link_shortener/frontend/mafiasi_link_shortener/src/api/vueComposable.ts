@@ -2,13 +2,13 @@ import type { Ref } from "vue";
 import { LinksApi } from "@/api/apis";
 import { computed } from "vue";
 import { Configuration } from "@/api/runtime";
-import { useAuthenticatedUser } from "@/auth";
+import { useAuthStore } from "@/stores";
 
 export function useLinksApi(): Ref<LinksApi | null> {
-  const user = useAuthenticatedUser()!;
+  const authStore = useAuthStore();
 
   return computed(() => {
-    if (user.value == null) {
+    if (authStore.currentUser == null) {
       return null;
     }
 
@@ -16,7 +16,7 @@ export function useLinksApi(): Ref<LinksApi | null> {
       new Configuration({
         basePath: window.config.VITE_API_BASE as string,
         headers: {
-          Authorization: `Bearer ${user.value!.access_token}`,
+          Authorization: `Bearer ${authStore.currentUser.access_token}`,
         },
       })
     );

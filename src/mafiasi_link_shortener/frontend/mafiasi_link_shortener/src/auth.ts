@@ -1,10 +1,13 @@
 import { User, UserManager } from "oidc-client-ts";
-import { inject, onMounted, ref } from "vue";
+import { inject } from "vue";
 import type { Ref } from "vue";
+import { useAuthStore } from "@/stores";
 
 export const USER_MANGER_SYMBOL = Symbol("user-manager");
-export const AUTHENTICATED_USER_SYMBOL = Symbol("authenticated-user");
 
+/**
+ * Create a new `UserManager` instance based on runtime settings defined through the environment.
+ */
 export function createUserManager(): UserManager {
   return new UserManager({
     authority: window.config.VITE_OPENID_ISSUER as string,
@@ -14,10 +17,9 @@ export function createUserManager(): UserManager {
   });
 }
 
-export function useUserManager(): UserManager | undefined {
-  return inject(USER_MANGER_SYMBOL);
-}
-
+/**
+ * Remove url parameters from the current URL that relate to the OAuth authentication
+ */
 function removeCallbackInfoFromUrl(): void {
   const url = new URL(window.location.toString());
   url.search = "";
@@ -50,14 +52,4 @@ export async function getUserOrLogin(userManager: UserManager): Promise<User | n
       throw e;
     }
   }
-}
-
-/**
- * Get a reference to the currently authenticated user.
- * If no user is currently authenticated, automatically perform a login.
- *
- * **Caution** This function redirects the user in order to log them in so the user agent may leave the app.
- */
-export function useAuthenticatedUser(): Ref<User | null> | undefined {
-  return inject(AUTHENTICATED_USER_SYMBOL);
 }

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useAuthenticatedUser } from "@/auth";
 import { useLinksApi } from "@/api";
 import type { Link } from "@/api";
 import { ref, watchEffect } from "vue";
 import ShortlinkDetail from "@/components/ShortlinkDetail.vue";
+import { useAuthStore } from "@/stores";
 
-const user = useAuthenticatedUser()!;
+const authStore = useAuthStore();
 const linksApi = useLinksApi();
 
 const links = ref<Link[]>([]);
@@ -31,7 +31,7 @@ watchEffect(async () => {
 
 <template>
   <div>
-    <p v-if="user == null">Authenticating...</p>
+    <p v-if="!authStore.isAuthenticated">Authenticating...</p>
     <p v-else-if="links === []">Loading...</p>
     <v-container v-else>
       <v-row>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import IndexView from "@/views/IndexView.vue";
-import { createUserManager, getUserOrLogin, USER_MANGER_SYMBOL, AUTHENTICATED_USER_SYMBOL } from "@/auth";
-import { onMounted, provide, ref } from "vue";
+import { createUserManager, getUserOrLogin, USER_MANGER_SYMBOL } from "@/auth";
+import { onMounted, provide } from "vue";
+import { useAuthStore } from "@/stores";
 
 const userManager = createUserManager();
 provide(USER_MANGER_SYMBOL, userManager);
 
-const user = ref();
-provide(AUTHENTICATED_USER_SYMBOL, user);
+const authStore = useAuthStore();
 onMounted(async () => {
-  user.value = await getUserOrLogin(userManager);
+  authStore.currentUser = await getUserOrLogin(userManager);
 });
 
 const SWAGGER_URL = `${window.config.VITE_API_BASE as string}/api/schema/swagger-ui/`;
