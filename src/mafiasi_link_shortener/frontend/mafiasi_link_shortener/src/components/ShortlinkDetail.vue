@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import type { Link, LinkRequest } from "@/api";
+import type { Link } from "@/api";
 import { useLinksApi } from "@/api";
 import { ref } from "vue";
 import ShortlinkEditForm from "@/components/ShortlinkEditForm.vue";
+import { useLinkStore } from "@/stores";
 
 const props = defineProps<{
   link: Link;
 }>();
 
-const emit = defineEmits<{
-  (e: "deleted"): void;
-  (e: "updated", updatedData: Partial<Link>): void;
-}>();
+const store = useLinkStore();
 
 const linksApi = useLinksApi();
 
@@ -22,7 +20,7 @@ async function onClickDelete(): Promise<void> {
     await linksApi.value!.linksDestroy({
       _short: props.link._short!,
     });
-    emit("deleted");
+    store.delete(props.link._short!);
   }
 }
 
@@ -32,7 +30,7 @@ async function onEditSubmit(linkData: Partial<Link>): Promise<void> {
     _short: props.link._short!,
     patchedLinkRequest: linkData,
   });
-  emit("updated", linkData);
+  store.update(props.link._short!, linkData);
 }
 </script>
 

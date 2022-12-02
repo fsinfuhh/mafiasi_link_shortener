@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Link } from "@/api";
 import type { VForm } from "vuetify/components";
-import { useLinksApi } from "@/api";
 import { reactive, ref } from "vue";
 
 const props = defineProps<{
@@ -13,7 +12,6 @@ const emit = defineEmits<{
   (e: "cancel"): void;
 }>();
 
-const linksApi = useLinksApi();
 const form = ref<VForm>();
 
 const newData: Partial<Link> = reactive({
