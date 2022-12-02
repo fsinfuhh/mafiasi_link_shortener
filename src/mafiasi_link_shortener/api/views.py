@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
@@ -7,6 +9,7 @@ from . import serializers
 from .permissions import IsOwner
 
 
+@method_decorator(never_cache, name="dispatch")
 class LinkViewset(viewsets.ModelViewSet):
     serializer_class = serializers.LinkSerializer
     queryset = models.Link.objects.all().select_related("owner")
