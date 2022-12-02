@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "mafiasi_link_shortener.links",
     "mafiasi_link_shortener.api",
+    "mafiasi_link_shortener.frontend",
 ]
 
 if DEBUG:
