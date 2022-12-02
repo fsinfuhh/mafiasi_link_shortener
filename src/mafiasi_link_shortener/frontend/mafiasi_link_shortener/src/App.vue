@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import IndexView from "@/views/IndexView.vue";
-import { createUserManager, USER_MANGER_SYMBOL } from "@/auth";
-import { provide } from "vue";
+import { createUserManager, getUserOrLogin, USER_MANGER_SYMBOL, AUTHENTICATED_USER_SYMBOL } from "@/auth";
+import { onMounted, provide, ref } from "vue";
 
 const userManager = createUserManager();
 provide(USER_MANGER_SYMBOL, userManager);
-const SWAGGER_URL = `${window.config.VITE_API_BASE as string}schema/swagger-ui/`;
+
+const user = ref();
+provide(AUTHENTICATED_USER_SYMBOL, user);
+onMounted(async () => {
+  user.value = await getUserOrLogin(userManager);
+});
+
+const SWAGGER_URL = `${window.config.VITE_API_BASE as string}/api/schema/swagger-ui/`;
 </script>
 
 <template>
@@ -28,7 +35,7 @@ const SWAGGER_URL = `${window.config.VITE_API_BASE as string}schema/swagger-ui/`
       >
         Source Code
       </v-btn>
-      <v-btn class="mx-4" variant="flat" prepend-icon="mdi-console-network" :href="SWAGGER_URL"> API </v-btn>
+      <v-btn class="mx-4" variant="flat" prepend-icon="mdi-console-network" :href="SWAGGER_URL"> API</v-btn>
     </v-footer>
   </v-app>
 </template>
