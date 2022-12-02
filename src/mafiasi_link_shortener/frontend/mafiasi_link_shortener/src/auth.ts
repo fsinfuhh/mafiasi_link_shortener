@@ -3,6 +3,7 @@ import { inject, onMounted, ref } from "vue";
 import type { Ref } from "vue";
 
 export const USER_MANGER_SYMBOL = Symbol("user-manager");
+export const AUTHENTICATED_USER_SYMBOL = Symbol("authenticated-user");
 
 export function createUserManager(): UserManager {
   return new UserManager({
@@ -57,18 +58,6 @@ export async function getUserOrLogin(userManager: UserManager): Promise<User | n
  *
  * **Caution** This function redirects the user in order to log them in so the user agent may leave the app.
  */
-export function useAuthenticatedUser(): Ref<User | null> | never {
-  const userManager = useUserManager();
-  const value = ref<User | null>(null);
-
-  onMounted(async () => {
-    if (userManager == undefined) {
-      console.warn("useAuthenticatedUser() was called but userManager could not be injected");
-      return;
-    }
-
-    value.value = await getUserOrLogin(useUserManager()!);
-  });
-
-  return value;
+export function useAuthenticatedUser(): Ref<User | null> | undefined {
+  return inject(AUTHENTICATED_USER_SYMBOL);
 }
