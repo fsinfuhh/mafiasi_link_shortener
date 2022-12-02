@@ -26,7 +26,7 @@ const SWAGGER_URL = `${window.config.VITE_API_BASE as string}/api/schema/swagger
     </v-main>
 
     <!-- footer -->
-    <v-footer class="d-flex justify-center">
+    <v-footer class="d-flex justify-center flex-grow-0">
       <v-btn
         class="mx-4"
         variant="flat"
