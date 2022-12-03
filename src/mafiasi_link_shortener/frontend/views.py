@@ -4,7 +4,7 @@ from django.conf import settings
 from django.views import View
 from whitenoise.middleware import WhiteNoiseMiddleware
 
-DIST_DIR = Path(__file__).absolute().parent / "borrowlist_vue" / "dist"
+DIST_DIR = Path(__file__).absolute().parent / "mafiasi_link_shortener" / "dist"
 
 
 class FrontendServer(WhiteNoiseMiddleware):
@@ -16,7 +16,7 @@ class FrontendServer(WhiteNoiseMiddleware):
 
     def configure_from_settings(self, settings):
         super().configure_from_settings(settings)
-        self.static_prefix = "/"
+        self.static_prefix = "/app/"
         self.static_root = str(DIST_DIR)
         self.autorefresh = False
         self.use_finders = False
@@ -40,7 +40,9 @@ class FrontendServer(WhiteNoiseMiddleware):
             and self.url_is_canonical(request.path_info)
             and request.path_info.startswith(self.static_prefix)
         ):
-            result = self.serve(self.files.get("/index.html"), request)
+            result = self.serve(
+                self.files.get(self.static_prefix + "index.html"), request
+            )
 
         return result
 

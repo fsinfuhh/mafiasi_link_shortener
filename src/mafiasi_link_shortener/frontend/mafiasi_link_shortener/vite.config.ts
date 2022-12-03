@@ -8,6 +8,7 @@ import vuetify from "vite-plugin-vuetify";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), runtimeConfig(), vuetify()],
+  base: "/app/",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
