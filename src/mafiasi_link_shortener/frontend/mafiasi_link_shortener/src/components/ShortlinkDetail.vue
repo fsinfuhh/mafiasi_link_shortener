@@ -2,7 +2,7 @@
 import type { Link } from "@/api";
 import { useLinksApi } from "@/api";
 import { ref } from "vue";
-import ShortlinkEditForm from "@/components/ShortlinkEditForm.vue";
+import ShortlinkEditForm from "@/components/EditShortlinkForm.vue";
 import { useLinkStore } from "@/stores";
 
 const props = defineProps<{
