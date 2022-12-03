@@ -36,6 +36,12 @@ export interface Link {
      * @type {string}
      * @memberof Link
      */
+    readonly shortlink: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Link
+     */
     readonly owner: string;
     /**
      *
@@ -51,6 +57,7 @@ export interface Link {
 export function instanceOfLink(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "selflink" in value;
+    isInstance = isInstance && "shortlink" in value;
     isInstance = isInstance && "owner" in value;
     isInstance = isInstance && "target" in value;
 
@@ -69,6 +76,7 @@ export function LinkFromJSONTyped(json: any, ignoreDiscriminator: boolean): Link
 
         'selflink': json['selflink'],
         '_short': !exists(json, 'short') ? undefined : json['short'],
+        'shortlink': json['shortlink'],
         'owner': json['owner'],
         'target': json['target'],
     };

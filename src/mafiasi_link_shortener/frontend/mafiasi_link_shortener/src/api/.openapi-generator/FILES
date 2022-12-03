@@ -1,8 +1,6 @@
-.openapi-generator-ignore
 apis/LinksApi.ts
 apis/SchemaApi.ts
 apis/index.ts
-index.ts
 models/Link.ts
 models/LinkRequest.ts
 models/PaginatedLinkList.ts
