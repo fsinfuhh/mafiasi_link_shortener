@@ -7,6 +7,9 @@ echo "Collecting staticfiles"
 echo "Migrating database"
 /app/src/src/manage.py migrate
 
+echo "Configuring frontend"
+/app/src/src/manage.py configure_frontend
+
 echo "Performing system checks"
 /app/src/src/manage.py check --deploy
 

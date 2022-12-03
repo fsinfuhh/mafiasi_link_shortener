@@ -18,3 +18,21 @@ repos:
       - id: isort
         args:
           - "--profile=black"
+
+  # hooks for the frontend
+  - repo: local
+    hooks:
+      - id: frontend-lint
+        name: frontend-lint
+        description: run linters for frontend
+        types_or: [ javascript, ts, vue ]
+        language: system
+        pass_filenames: false
+        entry: yarn run --cwd=src/mafiasi_link_shortener/frontend/mafiasi_link_shortener lint
+      - id: frontend-typecheck
+        name: frontend-typecheck
+        description: run typescript typecheck for frontend
+        types_or: [ ts, vue ]
+        language: system
+        pass_filenames: false
+        entry: yarn run --cwd=src/mafiasi_link_shortener/frontend/mafiasi_link_shortener type-check

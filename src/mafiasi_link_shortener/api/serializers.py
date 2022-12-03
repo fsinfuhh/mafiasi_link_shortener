@@ -1,4 +1,6 @@
+from django.urls import resolve, reverse
 from rest_framework import serializers, validators
+from rest_framework.request import Request
 
 from mafiasi_link_shortener.links import models
 
@@ -8,7 +10,7 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Link
-        fields = ["selflink", "short", "owner", "target"]
+        fields = ["selflink", "short", "shortlink", "owner", "target"]
         extra_kwargs = {"selflink": {"lookup_field": "short"}}
 
     short = serializers.CharField(
@@ -19,6 +21,7 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
     )
     owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
     target = serializers.URLField(max_length=200, required=True)
+    shortlink = serializers.SerializerMethodField()
 
     def save(self, **kwargs):
         # set the current user as default owner for all operations but allow explicit overwriting with
@@ -37,3 +40,7 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
         if is_update and value != self.instance.short:
             raise serializers.ValidationError("field cannot be changed once created")
         return value
+
+    def get_shortlink(self, link: models.Link) -> str:
+        relative_url = reverse("resolve-shortlink", kwargs={"short": link.short})
+        return self.context["request"].build_absolute_uri(relative_url)

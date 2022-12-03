@@ -1,3 +1,12 @@
+FROM docker.io/node:16 as build-frontend
+WORKDIR /app/src
+ADD src/mafiasi_link_shortener/frontend/mafiasi_link_shortener/package.json src/mafiasi_link_shortener/frontend/mafiasi_link_shortener/package-lock.json /app/src/
+RUN npm ci
+ADD src/mafiasi_link_shortener/frontend/mafiasi_link_shortener/ /app/src/
+RUN npm run build
+
+
+
 FROM docker.io/python:3.9-slim
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update &&\
@@ -30,11 +39,13 @@ RUN pip3 uninstall --no-cache-dir -y pipenv && \
 
 # install app source
 ADD src /app/src/src/
+COPY --from=build-frontend /app/src/dist/ /app/src/src/mafiasi_link_shortener/frontend/mafiasi_link_shortener/dist/
 ENV PYTHONPATH=$PYTHONPATH:/app/src/src/
 RUN mkdir /app/static
-RUN chown $UID:$GID -R /app && \
-    chmod u=rX,g=rX,o=r -R /app/src && \
-    chmod u=rwX,g=rwX,o=r -R /app/static
+RUN chown $UID:$GID -R /app &&\
+    chmod u=rX,g=rX,o=rX -R /app/src &&\
+    chmod u=rwX,g=rwX,o=r -R /app/static &&\
+    chmod u+w,g+w -R /app/src/src/mafiasi_link_shortener/frontend/mafiasi_link_shortener/dist/
 
 # configure docker-specifc application settings
 ENV SHORTLINK_STATIC_ROOT=/app/static

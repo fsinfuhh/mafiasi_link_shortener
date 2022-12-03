@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "mafiasi_link_shortener.links",
     "mafiasi_link_shortener.api",
+    "mafiasi_link_shortener.frontend",
 ]
 
 if DEBUG:
@@ -141,6 +142,7 @@ OPENID_SCOPE = "openid shortlinks"
 OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
 OPENID_REDIRECT_URI = None
+OPENID_FRONTEND_CLIENT_ID = env.str("SHORTLINK_OPENID_FRONTEND_CLIENT_ID")
 
 # rest framework
 REST_FRAMEWORK = {
@@ -202,6 +204,9 @@ SECRET_KEY = env.str("SHORTLINK_SECRET_KEY")
 ALLOWED_HOSTS = env.list("SHORTLINK_ALLOWED_HOSTS")
 
 LINK_SHORT_LENGTH = env.int("SHORTLINK_LINK_LENGTH", default=6)
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
 
 if env.bool("SHORTLINK_USE_HTTPS", default=not DEBUG):
     SECURE_SSL_REDIRECT = True

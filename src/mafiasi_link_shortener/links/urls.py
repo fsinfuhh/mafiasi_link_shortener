@@ -2,4 +2,4 @@ from django.urls import path
 
 from . import views
 
-urlpatterns = [path("<short>", views.view_link)]
+urlpatterns = [path("<short>", views.view_link, name="resolve-shortlink")]
