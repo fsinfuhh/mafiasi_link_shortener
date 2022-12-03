@@ -1,7 +1,4 @@
 import { User, UserManager } from "oidc-client-ts";
-import { inject } from "vue";
-import type { Ref } from "vue";
-import { useAuthStore } from "@/stores";
 
 export const USER_MANGER_SYMBOL = Symbol("user-manager");
 

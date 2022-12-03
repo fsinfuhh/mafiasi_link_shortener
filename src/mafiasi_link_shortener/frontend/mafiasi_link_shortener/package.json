@@ -13,6 +13,7 @@
     "gen-api-client": "openapi-generator-cli generate -g typescript-fetch -i http://localhost:8000/api/schema -o src/api/"
   },
   "dependencies": {
+    "vite-plugin-vuetify": "^1.0.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {
