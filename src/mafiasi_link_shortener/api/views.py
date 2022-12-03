@@ -12,7 +12,7 @@ from .permissions import IsOwner
 @method_decorator(never_cache, name="dispatch")
 class LinkViewset(viewsets.ModelViewSet):
     serializer_class = serializers.LinkSerializer
-    queryset = models.Link.objects.all().select_related("owner")
+    queryset = models.Link.objects.all().select_related("owner").order_by("short")
     permission_classes = [IsAuthenticated & IsOwner]
     lookup_field = "short"
 
