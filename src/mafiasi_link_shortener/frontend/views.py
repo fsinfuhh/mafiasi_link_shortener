@@ -41,7 +41,7 @@ class FrontendServer(WhiteNoiseMiddleware):
             and request.path_info.startswith(self.static_prefix)
         ):
             result = self.serve(
-                self.files.get(self.static_prefix + "index.html"), request
+                self.files.get(self.static_prefix + "index.post.html"), request
             )
 
         return result

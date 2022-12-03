@@ -7,7 +7,13 @@ import vuetify from "vite-plugin-vuetify";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), runtimeConfig(), vuetify()],
+  plugins: [
+    vue(),
+    vuetify(),
+    runtimeConfig({
+      emitGnuLinuxPatchBinary: true,
+    }),
+  ],
   base: "/app/",
   resolve: {
     alias: {
