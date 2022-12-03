@@ -29,7 +29,7 @@ watchEffect(async () => {
     <v-container v-else>
       <v-row>
         <!-- Link Detail List -->
-        <v-col v-for="i_link in linkStore.links" :key="i_link._short">
+        <v-col v-for="i_link in linkStore.links" :key="i_link._short" class="v-col-12 v-col-md-6 v-col-lg-4">
           <ShortlinkDetail :link="i_link" />
         </v-col>
       </v-row>
