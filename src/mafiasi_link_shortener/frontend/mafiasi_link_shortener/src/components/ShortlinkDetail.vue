@@ -36,7 +36,7 @@ function onClickCopy(): void {
       <span>{{ props.link._short }}</span>
       <v-btn class="ml-1" icon="mdi-content-copy" variant="plain" size="small" @click="onClickCopy" />
     </v-card-title>
-    <v-card-subtitle>{{ props.link.target }}</v-card-subtitle>
+    <v-card-subtitle class="mb-6">{{ props.link.target }}</v-card-subtitle>
     <v-card-actions>
       <v-btn variant="outlined" :href="props.link.shortlink" target="_blank" prepend-icon="mdi-open-in-new"
         >Visit</v-btn
