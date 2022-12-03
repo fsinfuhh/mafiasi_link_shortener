@@ -23,15 +23,6 @@ async function onClickDelete(): Promise<void> {
     store.delete(props.link._short!);
   }
 }
-
-async function onEditSubmit(linkData: Partial<Link>): Promise<void> {
-  isEditing.value = false;
-  await linksApi.value!.linksPartialUpdate({
-    _short: props.link._short!,
-    patchedLinkRequest: linkData,
-  });
-  store.update(props.link._short!, linkData);
-}
 </script>
 
 <template>
@@ -52,7 +43,7 @@ async function onEditSubmit(linkData: Partial<Link>): Promise<void> {
   <!-- Edit view -->
   <v-card v-else>
     <v-card-title>Edit {{ props.link._short }}</v-card-title>
-    <ShortlinkEditForm :link="props.link" @submit="onEditSubmit" @cancel="isEditing = false" />
+    <ShortlinkEditForm :link="props.link" @updated="isEditing = false" @cancel="isEditing = false" />
   </v-card>
 </template>
 

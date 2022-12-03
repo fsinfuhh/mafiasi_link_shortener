@@ -4,7 +4,6 @@ import { ref, watchEffect } from "vue";
 import ShortlinkDetail from "@/components/ShortlinkDetail.vue";
 import { useAuthStore, useLinkStore } from "@/stores";
 import CreateShortlinkForm from "@/components/CreateShortlinkForm.vue";
-import CreateShortlink from "@/components/CreateShortlink.vue";
 
 const authStore = useAuthStore();
 const linkStore = useLinkStore();
@@ -40,7 +39,7 @@ watchEffect(async () => {
         <template #activator="{ props }">
           <v-btn id="btn-add" icon="mdi-plus" color="primary" size="x-large" v-bind="props" />
         </template>
-        <CreateShortlink @close="isCreatePopupOpen = false" />
+        <CreateShortlinkForm @created="isCreatePopupOpen = false" @cancel="isCreatePopupOpen = false" />
       </v-dialog>
     </v-container>
   </div>
