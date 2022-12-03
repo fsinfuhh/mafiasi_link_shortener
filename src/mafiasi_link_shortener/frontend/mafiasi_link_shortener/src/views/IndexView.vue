@@ -35,7 +35,7 @@ watchEffect(async () => {
       </v-row>
 
       <!-- New Link Creation -->
-      <v-dialog v-model="isCreatePopupOpen">
+      <v-dialog v-model="isCreatePopupOpen" width="1024">
         <template #activator="{ props }">
           <v-btn id="btn-add" icon="mdi-plus" color="primary" size="x-large" v-bind="props" />
         </template>
