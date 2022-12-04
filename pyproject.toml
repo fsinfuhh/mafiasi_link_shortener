@@ -1,0 +1,12 @@
+[project]
+name = "mafiasi_link_shortener"
+authors = [{ name = "Finn-Thorben Sell", email = "dev@finn-thorben.me" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = ["License :: OSI Approved :: MIT License"]
+
+[tool.pytest.ini_options]
+env = [
+    "SHORTLINK_ENV_FILE=src/.env.dev"
+]
+DJANGO_SETTINGS_MODULE = "mafiasi_link_shortener.settings"

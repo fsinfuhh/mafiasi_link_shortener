@@ -1,6 +1,5 @@
-from django.urls import resolve, reverse
+from django.urls import reverse
 from rest_framework import serializers, validators
-from rest_framework.request import Request
 
 from mafiasi_link_shortener.links import models
 
