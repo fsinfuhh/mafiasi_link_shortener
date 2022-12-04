@@ -6,6 +6,7 @@ license = { file = "LICENSE" }
 classifiers = ["License :: OSI Approved :: MIT License"]
 
 [tool.pytest.ini_options]
+pythonpath = "src"
 env = [
     "SHORTLINK_ENV_FILE=src/.env.dev"
 ]
