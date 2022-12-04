@@ -3,6 +3,7 @@ import IndexView from "@/views/IndexView.vue";
 import { createUserManager, getUserOrLogin, USER_MANGER_SYMBOL } from "@/auth";
 import { onMounted, provide } from "vue";
 import { useAuthStore } from "@/stores";
+import AppBar from "@/components/AppBar.vue";
 
 const userManager = createUserManager();
 provide(USER_MANGER_SYMBOL, userManager);
@@ -17,8 +18,7 @@ const SWAGGER_URL = `${window.config.VITE_API_BASE as string}/api/schema/swagger
 
 <template>
   <v-app>
-    <!-- Top Bar -->
-    <v-app-bar title="Mafiasi Link Shortener" />
+    <AppBar />
 
     <!-- Main Content -->
     <v-main>
