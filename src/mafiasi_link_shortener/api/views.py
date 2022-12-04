@@ -2,6 +2,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from simple_openid_connect.integrations.djangorestframework.permissions import (
+    HasTokenScope,
+)
 
 from mafiasi_link_shortener.links import models
 
@@ -13,7 +16,7 @@ from .permissions import IsOwner
 class LinkViewset(viewsets.ModelViewSet):
     serializer_class = serializers.LinkSerializer
     queryset = models.Link.objects.all().select_related("owner").order_by("short")
-    permission_classes = [IsAuthenticated & IsOwner]
+    permission_classes = [HasTokenScope & IsAuthenticated & IsOwner]
     lookup_field = "short"
 
     def get_queryset(self):
