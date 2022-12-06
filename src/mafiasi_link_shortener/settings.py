@@ -136,7 +136,7 @@ if SENTRY_DSN is not None:
 
 # openid authentication
 OPENID_ISSUER = env.str(
-    "SHORTLINK_OPENID_ISSUER", default="https://identity.mafiasi.de/auth/realms/mafiasi"
+    "SHORTLINK_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi"
 )
 OPENID_SCOPE = "openid shortlinks"
 OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
