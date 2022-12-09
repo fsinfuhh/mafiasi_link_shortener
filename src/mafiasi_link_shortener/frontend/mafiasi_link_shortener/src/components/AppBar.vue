@@ -18,7 +18,7 @@ async function onLogoutClicked() {
 <template>
   <v-app-bar>
     <template #prepend>
-      <img src="@/assets/favicon.ico" alt="Link Shortener Icon" width="50" height="50" />
+      <img src="@/assets/kurzlink.png" alt="Link Shortener Icon" width="40" height="40" />
     </template>
     <v-app-bar-title> Mafiasi Link Shortener </v-app-bar-title>
     <template #append>
