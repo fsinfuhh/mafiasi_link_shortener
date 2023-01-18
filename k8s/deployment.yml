@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: mafiasi-link-shortener
-          image: registry.mafiasi.de/mafiasi_link_shortener
+          image: ghcr.io/fsinfuhh/mafiasi_link_shortener
           envFrom:
             - configMapRef:
                 name: config
