@@ -19,7 +19,9 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
         validators=[validators.UniqueValidator(queryset=models.Link.objects.all())],
     )
     owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
-    target = serializers.URLField(max_length=200, required=True)
+    target = serializers.URLField(
+        required=True, max_length=models.Link.target.field.max_length
+    )
     shortlink = serializers.SerializerMethodField()
 
     def save(self, **kwargs):
