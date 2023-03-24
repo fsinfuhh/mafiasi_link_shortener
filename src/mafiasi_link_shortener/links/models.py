@@ -25,7 +25,7 @@ class Link(models.Model):
     short = models.CharField(
         max_length=32, primary_key=True, db_index=True, default=link_default_short
     )
-    target = models.URLField(max_length=400)
+    target = models.URLField(max_length=500)
     owner = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
