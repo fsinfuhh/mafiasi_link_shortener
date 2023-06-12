@@ -37,3 +37,14 @@ def shortlink(test_user) -> models.Link:
     return models.Link.objects.create(
         owner=test_user, short="test123", target="https://example.com"
     )
+
+
+@pytest.fixture
+def login_required_link(test_user) -> models.Link:
+    """An existing Link instance that requires login"""
+    return models.Link.objects.create(
+        owner=test_user,
+        short="login123",
+        target="https://example.com",
+        login_required=True,
+    )
