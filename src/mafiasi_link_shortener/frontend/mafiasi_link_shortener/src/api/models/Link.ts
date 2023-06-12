@@ -49,6 +49,11 @@ export interface Link {
      * @memberof Link
      */
     target: string;
+    /**
+     * @type {boolean}
+     * @memberof Link
+     */
+    login_required?: boolean;
 }
 
 /**
@@ -60,6 +65,7 @@ export function instanceOfLink(value: object): boolean {
     isInstance = isInstance && "shortlink" in value;
     isInstance = isInstance && "owner" in value;
     isInstance = isInstance && "target" in value;
+    isInstance = isInstance && "login_required" in value;
 
     return isInstance;
 }
@@ -79,6 +85,7 @@ export function LinkFromJSONTyped(json: any, ignoreDiscriminator: boolean): Link
         'shortlink': json['shortlink'],
         'owner': json['owner'],
         'target': json['target'],
+        'login_required': !exists(json, 'login_required') ? undefined : json['login_required'],
     };
 }
 
@@ -90,8 +97,8 @@ export function LinkToJSON(value?: Link | null): any {
         return null;
     }
     return {
-
         'short': value._short,
         'target': value.target,
+        'login_required': value.login_required,
     };
 }

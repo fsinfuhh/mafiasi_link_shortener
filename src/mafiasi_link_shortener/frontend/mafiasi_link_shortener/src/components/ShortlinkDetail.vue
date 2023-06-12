@@ -37,6 +37,9 @@ function onClickCopy(): void {
       <v-btn class="ml-1" icon="mdi-content-copy" variant="plain" size="small" @click="onClickCopy" />
     </v-card-title>
     <v-card-subtitle class="mb-6">{{ props.link.target }}</v-card-subtitle>
+    <v-card-subtitle class="mb-6">
+      <span v-if="props.link.login_required">Requires login</span>
+    </v-card-subtitle>
     <v-card-actions>
       <v-btn variant="outlined" :href="props.link.shortlink" target="_blank" prepend-icon="mdi-open-in-new"
         >Visit</v-btn

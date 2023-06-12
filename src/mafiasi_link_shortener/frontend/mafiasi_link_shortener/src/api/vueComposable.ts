@@ -8,16 +8,14 @@ export function useLinksApi(): Ref<LinksApi | null> {
   const authStore = useAuthStore();
 
   return computed(() => {
-    if (authStore.currentUser == null) {
+    if (!authStore.isAuthenticated) {
       return null;
     }
 
     return new LinksApi(
       new Configuration({
         basePath: window.config.VITE_API_BASE as string,
-        headers: {
-          Authorization: `Bearer ${authStore.currentUser.access_token}`,
-        },
+        credentials: "include",
       })
     );
   });

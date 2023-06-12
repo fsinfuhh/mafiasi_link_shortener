@@ -1,5 +1,4 @@
 import type { Link } from "@/api";
-import type { User } from "oidc-client-ts";
 import { defineStore } from "pinia";
 
 export const useLinkStore = defineStore("shortlinks", {
@@ -30,9 +29,6 @@ export const useLinkStore = defineStore("shortlinks", {
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    currentUser: null as User | null,
+    isAuthenticated: false,
   }),
-  getters: {
-    isAuthenticated: (state) => state.currentUser !== null,
-  },
 });

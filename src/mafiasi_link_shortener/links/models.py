@@ -32,6 +32,7 @@ class Link(models.Model):
         related_name="owned_links",
         null=True,
     )
+    login_required = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.short} -> {self.target}"

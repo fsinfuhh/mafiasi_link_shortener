@@ -19,6 +19,7 @@ const form = ref<VForm>();
 const linkData: LinkRequest = reactive({
   _short: "",
   target: "",
+  login_required: false,
 });
 const apiErrors: Ref<Record<string, string[]>> = ref({});
 
@@ -72,6 +73,17 @@ async function onFormSubmit() {
               variant="underlined"
               :error-messages="apiErrors['target']"
               @update:modelValue="apiErrors['target'] = []"
+            />
+          </v-col>
+
+          <!-- Login required? -->
+          <v-col :cols="12">
+            <v-checkbox
+              id="login_required"
+              label="Login required?"
+              v-model="linkData.login_required"
+              :error-messages="apiErrors['login_required']"
+              @update:modelValue="apiErrors['login_required'] = []"
             />
           </v-col>
         </v-row>

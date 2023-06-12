@@ -14,6 +14,7 @@ router.register("links", views.LinkViewset, basename="link")
 
 urlpatterns = [
     path("", RedirectView.as_view(url="schema/swagger-ui/")),
+    path("logged_in/", views.logged_in, name="logged_in"),
     path("schema/", SpectacularAPIView.as_view(), name="openapi-schema"),
     path(
         "schema/swagger-ui/",
