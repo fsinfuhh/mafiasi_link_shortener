@@ -85,7 +85,7 @@ export function LinkFromJSONTyped(json: any, ignoreDiscriminator: boolean): Link
         'shortlink': json['shortlink'],
         'owner': json['owner'],
         'target': json['target'],
-        'login_required': !exists(json, 'login_required') ? undefined : json['login_required'],
+        'login_required': json['login_required'],
     };
 }
 

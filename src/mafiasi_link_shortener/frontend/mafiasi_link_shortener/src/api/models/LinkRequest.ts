@@ -59,7 +59,7 @@ export function LinkRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean
     return {
         '_short': !exists(json, 'short') ? undefined : json['short'],
         'target': json['target'],
-        'login_required': !exists(json, 'login_required') ? undefined : json['login_required'],
+        'login_required': json['login_required'],
     };
 }
 
