@@ -11,10 +11,8 @@ environs = { version = "~=9.5", extras = ["django"] }           # parse configur
 psycopg2-binary = "~=2.8"                                       # database driver for postgres
 sentry-sdk = "~=0.14"                                           # error reporting
 whitenoise = { version = "~=5.2", extras = ["brotli"] }         # better staticfile serving for django
-simple-openid-connect = "~=0.1.2"                               # mafiasi identity authentication
-# can be replaced once a version >0.24.2 is released for https://github.com/tfranzel/drf-spectacular/pull/882
-#drf-spectacular = { version = "~=0.24", extras = ["sidecar"] }  # openapi schema generation
-drf-spectacular = { git = "https://github.com/tfranzel/drf-spectacular.git", ref = "master", editable = true, extras = ["sidecar"] }
+simple-openid-connect = "~=0.3"                                 # mafiasi identity authentication
+drf-spectacular = { version = "~=0.26", extras = ["sidecar"] }  # openapi schema generation
 
 [dev-packages]
 coverage = { version = "*", extras = ["toml"] }
