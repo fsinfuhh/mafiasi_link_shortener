@@ -150,8 +150,8 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
-        "simple_openid_connect.integrations.djangorestframework.permissions.HasTokenScope",
-        "rest_framework.permissions.IsAuthenticated",
+        # strict default permissions, they are overwritten in the views
+        "rest_framework.permissions.IsAdminUser",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
