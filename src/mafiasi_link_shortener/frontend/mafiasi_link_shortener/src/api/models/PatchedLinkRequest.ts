@@ -32,10 +32,11 @@ export interface PatchedLinkRequest {
      */
     target?: string;
     /**
+     *
      * @type {boolean}
      * @memberof PatchedLinkRequest
      */
-    login_required?: boolean;
+    loginRequired?: boolean;
 }
 
 /**
@@ -56,9 +57,10 @@ export function PatchedLinkRequestFromJSONTyped(json: any, ignoreDiscriminator: 
         return json;
     }
     return {
+
         '_short': !exists(json, 'short') ? undefined : json['short'],
         'target': !exists(json, 'target') ? undefined : json['target'],
-        'login_required': !exists(json, 'login_required') ? undefined : json['login_required'],
+        'loginRequired': !exists(json, 'login_required') ? undefined : json['login_required'],
     };
 }
 
@@ -70,8 +72,9 @@ export function PatchedLinkRequestToJSON(value?: PatchedLinkRequest | null): any
         return null;
     }
     return {
+
         'short': value._short,
         'target': value.target,
-        'login_required': value.login_required,
+        'login_required': value.loginRequired,
     };
 }

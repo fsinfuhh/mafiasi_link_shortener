@@ -62,14 +62,6 @@ export interface LinksUpdateRequest {
  *
  */
 export class LinksApi extends runtime.BaseAPI {
-    get_headers() {
-        let headers: runtime.HTTPHeaders = {};
-        const csrf_token = document.cookie.split('; ').find(row => row.startsWith('csrftoken'))?.split('=')[1]
-        if (csrf_token) {
-            headers['X-CSRFToken'] = csrf_token;
-        }
-        return headers;
-    }
 
     /**
      */
@@ -80,7 +72,7 @@ export class LinksApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = this.get_headers();
+        const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
@@ -111,7 +103,7 @@ export class LinksApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = this.get_headers();
+        const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
             path: `/api/links/{short}/`.replace(`{${"short"}}`, encodeURIComponent(String(requestParameters._short))),
@@ -142,7 +134,7 @@ export class LinksApi extends runtime.BaseAPI {
             queryParameters['offset'] = requestParameters.offset;
         }
 
-        const headerParameters: runtime.HTTPHeaders = this.get_headers();
+        const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
             path: `/api/links/`,
@@ -170,7 +162,7 @@ export class LinksApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = this.get_headers();
+        const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
@@ -201,7 +193,7 @@ export class LinksApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = this.get_headers();
+        const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
             path: `/api/links/{short}/`.replace(`{${"short"}}`, encodeURIComponent(String(requestParameters._short))),
@@ -233,7 +225,7 @@ export class LinksApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = this.get_headers();
+        const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 

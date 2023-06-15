@@ -81,9 +81,9 @@ async function onFormSubmit() {
             <v-checkbox
               id="login_required"
               label="Login required?"
-              v-model="linkData.login_required"
-              :error-messages="apiErrors['login_required']"
-              @update:modelValue="apiErrors['login_required'] = []"
+              v-model="linkData.loginRequired"
+              :error-messages="apiErrors['loginRequired']"
+              @update:modelValue="apiErrors['loginRequired'] = []"
             />
           </v-col>
         </v-row>

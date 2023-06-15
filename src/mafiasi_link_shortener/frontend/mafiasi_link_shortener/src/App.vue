@@ -3,24 +3,26 @@ import IndexView from "@/views/IndexView.vue";
 import { onMounted } from "vue";
 import { useAuthStore } from "@/stores";
 import AppBar from "@/components/AppBar.vue";
+import { useLoggedInApi } from "@/api";
 
 const authStore = useAuthStore();
+const loggedInApi = useLoggedInApi();
 onMounted(async () => {
-  await fetch(`${window.config.VITE_API_BASE as string}/api/logged_in/`, {
-    credentials: "include",
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        authStore.isAuthenticated = true;
-      } else {
-        authStore.isAuthenticated = false;
-        window.location.href = `${window.config.VITE_API_BASE as string}/auth/openid/login/`;
-      }
+  try {
+    await loggedInApi.loggedInRetrieve();
+    authStore.isAuthenticated = true;
+  } catch (e) {
+    authStore.isAuthenticated = false;
+    window.location.href = `${window.config.VITE_API_BASE as string}/auth/openid/login/`;
+  }
+  /*loggedInApi.loggedInRetrieve()
+    .then(() => {
+      authStore.isAuthenticated = true;
     })
-    .catch((error) => {
+    .catch(() => {
       authStore.isAuthenticated = false;
       window.location.href = `${window.config.VITE_API_BASE as string}/auth/openid/login/`;
-    });
+    });*/
 });
 
 const SWAGGER_URL = `${window.config.VITE_API_BASE as string}/api/schema/swagger-ui/`;

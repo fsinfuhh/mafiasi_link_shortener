@@ -1,4 +1,6 @@
+apis/DefaultApi.ts
 apis/LinksApi.ts
+apis/LoggedInApi.ts
 apis/SchemaApi.ts
 apis/index.ts
 models/Link.ts

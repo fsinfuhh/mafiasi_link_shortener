@@ -21,7 +21,7 @@ const form = ref<VForm>();
 
 const newData: Partial<Link> = reactive({
   target: props.link.target,
-  login_required: props.link.login_required,
+  loginRequired: props.link.loginRequired,
 });
 const apiErrors: Ref<Record<string, string[]>> = ref({});
 
@@ -63,9 +63,9 @@ async function onFormSubmit() {
           <v-checkbox
             id="login_required"
             label="Login required?"
-            v-model="newData.login_required"
-            :error-messages="apiErrors['login_required']"
-            @update:modelValue="apiErrors['login_required'] = []"
+            v-model="newData.loginRequired"
+            :error-messages="apiErrors['loginRequired']"
+            @update:modelValue="apiErrors['loginRequired'] = []"
           />
         </v-col>
       </v-row>
