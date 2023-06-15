@@ -30,8 +30,12 @@ class LinkViewset(viewsets.ModelViewSet):
         return super().get_queryset()
 
 
-def logged_in(request):
-    if request.user.is_authenticated:
-        return HttpResponse(status=HTTPStatus.OK)
-    else:
-        return HttpResponse(status=HTTPStatus.UNAUTHORIZED)
+class LoggedInViewset(viewsets.ViewSet):
+    # no permissions required because we check for them depending on the link
+    permission_classes = []
+
+    def list(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponse(status=HTTPStatus.OK)
+        else:
+            return HttpResponse(status=HTTPStatus.UNAUTHORIZED)
