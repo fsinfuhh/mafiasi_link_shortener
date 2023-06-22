@@ -16,7 +16,7 @@ class FrontendServer(WhiteNoiseMiddleware):
 
     def __init__(self):
         super().__init__()
-        self.static_prefix = "/app/"
+        self.static_prefix = "/app"
         self.static_root = str(DIST_DIR)
         self.autorefresh = False
         self.use_finders = False
