@@ -32,7 +32,7 @@ class FrontendServer(WhiteNoiseMiddleware):
             and self.url_is_canonical(request.path_info)
             and request.path_info.startswith(self.static_prefix)
         ):
-            static_file = self.files.get(f"{self.static_prefix}/index.html")
+            static_file = self.files.get(f"{self.static_prefix}/index.post.html")
 
         if static_file is None:
             raise ValueError(
