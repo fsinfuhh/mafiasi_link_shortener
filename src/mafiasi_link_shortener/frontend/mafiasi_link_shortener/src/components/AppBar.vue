@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { inject } from "vue";
-import { USER_MANGER_SYMBOL } from "@/auth";
-import type { UserManager } from "oidc-client-ts";
 import { useAuthStore } from "@/stores";
 
 const authStore = useAuthStore();
-const userManager = inject<UserManager>(USER_MANGER_SYMBOL)!;
 
 async function onLogoutClicked() {
-  await userManager.removeUser();
-  await userManager.signoutRedirect({
-    post_logout_redirect_uri: "https://mafiasi.de/",
-  });
+  window.location.href = `${window.config.VITE_API_BASE as string}/auth/openid/logout/`;
 }
 </script>
 

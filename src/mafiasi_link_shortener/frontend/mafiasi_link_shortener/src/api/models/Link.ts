@@ -38,7 +38,7 @@ export interface Link {
      */
     readonly shortlink: string;
     /**
-     *
+     * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
      * @type {string}
      * @memberof Link
      */
@@ -49,6 +49,12 @@ export interface Link {
      * @memberof Link
      */
     target: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Link
+     */
+    loginRequired?: boolean;
 }
 
 /**
@@ -79,6 +85,7 @@ export function LinkFromJSONTyped(json: any, ignoreDiscriminator: boolean): Link
         'shortlink': json['shortlink'],
         'owner': json['owner'],
         'target': json['target'],
+        'loginRequired': !exists(json, 'login_required') ? undefined : json['login_required'],
     };
 }
 
@@ -93,5 +100,6 @@ export function LinkToJSON(value?: Link | null): any {
 
         'short': value._short,
         'target': value.target,
+        'login_required': value.loginRequired,
     };
 }

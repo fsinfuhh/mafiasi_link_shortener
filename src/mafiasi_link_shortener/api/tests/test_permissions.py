@@ -54,6 +54,18 @@ def test_can_access_with_required_scopes(authenticated_client):
     assert response.status_code == 200
 
 
+def test_session_cannot_access_without_required_scopes(test_user):
+    client = APIClient()
+    client.force_login(test_user)
+    response = client.get(path=reverse("link-list"))
+    assert response.status_code == 403
+
+
+def test_session_can_access_with_required_scopes(session_authenticated_client):
+    response = session_authenticated_client.get(path=reverse("link-list"))
+    assert response.status_code == 200
+
+
 def test_listed_links_includes_only_own(
     authenticated_client, shortlink, second_user_and_link
 ):

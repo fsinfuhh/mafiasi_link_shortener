@@ -9,7 +9,7 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Link
-        fields = ["selflink", "short", "shortlink", "owner", "target"]
+        fields = ["selflink", "short", "shortlink", "owner", "target", "login_required"]
         extra_kwargs = {"selflink": {"lookup_field": "short"}}
 
     short = serializers.CharField(
@@ -23,6 +23,7 @@ class LinkSerializer(serializers.HyperlinkedModelSerializer):
         required=True, max_length=models.Link.target.field.max_length
     )
     shortlink = serializers.SerializerMethodField()
+    login_required = serializers.BooleanField(default=False)
 
     def save(self, **kwargs):
         # set the current user as default owner for all operations but allow explicit overwriting with

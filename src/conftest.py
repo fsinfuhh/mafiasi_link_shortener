@@ -1,7 +1,10 @@
+import json
+
 import pytest
 from django.contrib.auth.models import AbstractBaseUser
 from rest_framework.test import APIClient
 from simple_openid_connect.data import TokenIntrospectionSuccessResponse
+from simple_openid_connect.integrations.django.models import OpenidSession, OpenidUser
 from simple_openid_connect.integrations.djangorestframework.authentication import (
     AuthenticatedViaToken,
 )
@@ -32,8 +35,44 @@ def authenticated_client(settings, test_user, client) -> APIClient:
 
 
 @pytest.fixture
+def session_authenticated_client(settings, test_user, client) -> APIClient:
+    """An APIClient that is already authenticated with the `test_user`"""
+    client = APIClient()
+    client.force_login(test_user)
+    openid_user = OpenidUser.objects.create(
+        sub="1",
+        user=test_user,
+        _id_token=json.dumps(
+            {
+                "sid": "example_session",
+                "sub": "1",
+                "iss": "https://example.com",
+                "aud": "test",
+                "exp": 0,
+                "iat": 0,
+            }
+        ),
+    )
+    OpenidSession.objects.create(
+        user=openid_user, sid="example_session", scope=settings.OPENID_SCOPE
+    )
+    return client
+
+
+@pytest.fixture
 def shortlink(test_user) -> models.Link:
     """An existing Link instance"""
     return models.Link.objects.create(
         owner=test_user, short="test123", target="https://example.com"
+    )
+
+
+@pytest.fixture
+def login_required_link(test_user) -> models.Link:
+    """An existing Link instance that requires login"""
+    return models.Link.objects.create(
+        owner=test_user,
+        short="login123",
+        target="https://example.com",
+        login_required=True,
     )

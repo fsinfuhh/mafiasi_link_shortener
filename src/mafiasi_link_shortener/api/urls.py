@@ -11,6 +11,7 @@ from . import views
 
 router = DefaultRouter()
 router.register("links", views.LinkViewset, basename="link")
+router.register("logged_in", views.LoggedInViewset, basename="logged_in")
 
 urlpatterns = [
     path("", RedirectView.as_view(url="schema/swagger-ui/")),

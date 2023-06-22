@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import IndexView from "@/views/IndexView.vue";
-import { createUserManager, getUserOrLogin, USER_MANGER_SYMBOL } from "@/auth";
-import { onMounted, provide } from "vue";
+import { onMounted } from "vue";
 import { useAuthStore } from "@/stores";
 import AppBar from "@/components/AppBar.vue";
-
-const userManager = createUserManager();
-provide(USER_MANGER_SYMBOL, userManager);
+import { useLoggedInApi } from "@/api";
 
 const authStore = useAuthStore();
+const loggedInApi = useLoggedInApi();
 onMounted(async () => {
-  authStore.currentUser = await getUserOrLogin(userManager);
+  try {
+    await loggedInApi.loggedInRetrieve();
+    authStore.isAuthenticated = true;
+  } catch (e) {
+    authStore.isAuthenticated = false;
+    window.location.href = `${window.config.VITE_API_BASE as string}/auth/openid/login/`;
+  }
 });
 
 const SWAGGER_URL = `${window.config.VITE_API_BASE as string}/api/schema/swagger-ui/`;

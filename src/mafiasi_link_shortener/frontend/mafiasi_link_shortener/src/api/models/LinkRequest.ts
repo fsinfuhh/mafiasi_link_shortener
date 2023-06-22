@@ -31,6 +31,12 @@ export interface LinkRequest {
      * @memberof LinkRequest
      */
     target: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof LinkRequest
+     */
+    loginRequired?: boolean;
 }
 
 /**
@@ -55,6 +61,7 @@ export function LinkRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean
 
         '_short': !exists(json, 'short') ? undefined : json['short'],
         'target': json['target'],
+        'loginRequired': !exists(json, 'login_required') ? undefined : json['login_required'],
     };
 }
 
@@ -69,5 +76,6 @@ export function LinkRequestToJSON(value?: LinkRequest | null): any {
 
         'short': value._short,
         'target': value.target,
+        'login_required': value.loginRequired,
     };
 }

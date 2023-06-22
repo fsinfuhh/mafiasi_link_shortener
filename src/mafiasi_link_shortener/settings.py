@@ -107,12 +107,14 @@ USE_TZ = True
 STATIC_URL = "/static/"
 WHITENOISE_ROOT = BASE_DIR / "mafiasi_link_shortener" / "root_static"
 
-LOGIN_REDIRECT_URL = "swagger-ui"
-LOGIN_URL = "/auth/"
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "simple_openid_connect_django:login"
+LOGOUT_REDIRECT_URL = "/"
 
 VERSION = "0.1.0"
 
 CORS_URLS_REGEX = r"^/api/.*$"
+CORS_ALLOW_CREDENTIALS = True
 
 APPEND_SLASH = True
 
@@ -139,16 +141,17 @@ OPENID_ISSUER = env.str(
 OPENID_SCOPE = "openid shortlinks"
 OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
-OPENID_REDIRECT_URI = None
 OPENID_FRONTEND_CLIENT_ID = env.str("SHORTLINK_OPENID_FRONTEND_CLIENT_ID")
 
 # rest framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "simple_openid_connect.integrations.djangorestframework.authentication.AccessTokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
-        "simple_openid_connect.integrations.djangorestframework.permissions.HasTokenScope",
+        # strict default permissions, they are overwritten in the views
+        "rest_framework.permissions.IsAdminUser",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
@@ -204,7 +207,11 @@ ALLOWED_HOSTS = env.list("SHORTLINK_ALLOWED_HOSTS")
 LINK_SHORT_LENGTH = env.int("SHORTLINK_LINK_LENGTH", default=6)
 
 if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:5173",
+    ]
+
+    CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 if env.bool("SHORTLINK_USE_HTTPS", default=not DEBUG):
     SECURE_SSL_REDIRECT = True
