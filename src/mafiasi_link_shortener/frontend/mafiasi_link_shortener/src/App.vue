@@ -15,14 +15,6 @@ onMounted(async () => {
     authStore.isAuthenticated = false;
     window.location.href = `${window.config.VITE_API_BASE as string}/auth/openid/login/`;
   }
-  /*loggedInApi.loggedInRetrieve()
-    .then(() => {
-      authStore.isAuthenticated = true;
-    })
-    .catch(() => {
-      authStore.isAuthenticated = false;
-      window.location.href = `${window.config.VITE_API_BASE as string}/auth/openid/login/`;
-    });*/
 });
 
 const SWAGGER_URL = `${window.config.VITE_API_BASE as string}/api/schema/swagger-ui/`;
