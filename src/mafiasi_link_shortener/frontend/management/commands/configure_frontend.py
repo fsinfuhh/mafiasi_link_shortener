@@ -20,9 +20,6 @@ class Command(BaseCommand):
                 "--out=index.post.html",
             ],
             env={
-                "VITE_OPENID_ISSUER": settings.OPENID_ISSUER,
-                "VITE_OPENID_SCOPE": settings.OPENID_SCOPE,
-                "VITE_OPENID_CLIENT_ID": settings.OPENID_FRONTEND_CLIENT_ID,
                 "VITE_API_BASE": "..",
             },
         )
