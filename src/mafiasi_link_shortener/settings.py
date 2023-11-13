@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import re
 from pathlib import Path
 
 import sentry_sdk
@@ -138,9 +138,11 @@ if SENTRY_DSN is not None:
 OPENID_ISSUER = env.str(
     "SHORTLINK_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi"
 )
-OPENID_SCOPE = "openid shortlinks"
+OPENID_SCOPE = "openid groups shortlinks"
 OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
+OPENID_USER_MAPPER = "mafiasi_link_shortener.links.user_mapping.MafiasiUserMapper"
+OPENID_ADMIN_GROUPS = re.compile(env.str("SHORTLINK_OPENID_ADMIN_GROUPS"))
 
 # rest framework
 REST_FRAMEWORK = {
