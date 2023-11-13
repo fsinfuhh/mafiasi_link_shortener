@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==4.1.9"                                              # can be upgraded once we have postgres >11 deployed
+django = "~=4.1"                                                # web framework
 django-cors-headers = "~=3.6"                                   # support for configuring CORS headers
 djangorestframework = "~=3.12"                                  # api framework
 environs = { version = "~=9.5", extras = ["django"] }           # parse configuration from environment variables
