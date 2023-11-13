@@ -7,7 +7,7 @@ RUN npm run build
 
 
 
-FROM docker.io/python:3.9-slim
+FROM docker.io/python:3.11-slim
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update &&\
     apt-get install -y --no-install-recommends git && \
