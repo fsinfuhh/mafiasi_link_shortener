@@ -138,7 +138,7 @@ if SENTRY_DSN is not None:
 OPENID_ISSUER = env.str(
     "SHORTLINK_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi"
 )
-OPENID_SCOPE = "openid groups shortlinks"
+OPENID_SCOPE = "openid profile shortlinks"
 OPENID_CLIENT_ID = env.str("SHORTLINK_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("SHORTLINK_OPENID_CLIENT_SECRET")
 OPENID_USER_MAPPER = "mafiasi_link_shortener.links.user_mapping.MafiasiUserMapper"
