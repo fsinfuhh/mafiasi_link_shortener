@@ -788,12 +788,12 @@
         },
         "simple-openid-connect": {
             "hashes": [
-                "sha256:97c913722832ba4041b78a1a1ca0faa332fd2b7a1e12e4226a7322d3bb6f87f4",
-                "sha256:f46dff4ae174e50e8375550195361df354418274bb7f027b86c046788d967816"
+                "sha256:2c22cd3490fd48b75e924adde34ae2c81e9d362c1a6a5d490a204cc9c3efd356",
+                "sha256:a0b5b23be464cc330e7885d6c66a8b2e66982a2c05ff85da00d263247717c751"
             ],
             "index": "pypi",
             "markers": "python_version ~= '3.9'",
-            "version": "==0.5.2"
+            "version": "==0.5.3"
         },
         "six": {
             "hashes": [
