@@ -42,6 +42,11 @@ def session_authenticated_client(settings, test_user, client) -> APIClient:
     openid_user = OpenidUser.objects.create(
         sub="1",
         user=test_user,
+    )
+    OpenidSession.objects.create(
+        user=openid_user,
+        sid="example_session",
+        scope=settings.OPENID_SCOPE,
         _id_token=json.dumps(
             {
                 "sid": "example_session",
@@ -52,9 +57,6 @@ def session_authenticated_client(settings, test_user, client) -> APIClient:
                 "iat": 0,
             }
         ),
-    )
-    OpenidSession.objects.create(
-        user=openid_user, sid="example_session", scope=settings.OPENID_SCOPE
     )
     return client
 
