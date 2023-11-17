@@ -13,7 +13,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("mafiasi_link_shortener.api.urls")),
     path("auth/openid/", include("simple_openid_connect.integrations.django.urls")),
-    path("", include("mafiasi_link_shortener.frontend.urls")),
     path("", include("mafiasi_link_shortener.links.urls")),
 ]
 

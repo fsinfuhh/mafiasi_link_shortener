@@ -1,0 +1,23 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --dotenv .env.dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "gen-api-client": "openapi-generator-cli generate -g typescript-fetch -i http://localhost:8000/api/schema -o utils/apiClient/"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@openapitools/openapi-generator-cli": "^2.7.0",
+    "nuxt": "^3.8.1",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "nuxt_layer_mafiasi": "github:fsinfuhh/nuxt_layer_mafiasi"
+  }
+}
