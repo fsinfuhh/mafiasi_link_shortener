@@ -4,14 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "~=4.1"                                                # web framework
+django = "~=5.0"                                                # web framework
 django-cors-headers = "~=3.6"                                   # support for configuring CORS headers
 djangorestframework = "~=3.12"                                  # api framework
 environs = { version = "~=9.5", extras = ["django"] }           # parse configuration from environment variables
 psycopg2-binary = "~=2.8"                                       # database driver for postgres
 sentry-sdk = "~=0.14"                                           # error reporting
 whitenoise = { version = "~=5.2", extras = ["brotli"] }         # better staticfile serving for django
-simple-openid-connect = "~=0.5"                                 # mafiasi identity authentication
+simple-openid-connect = "~=1.0"                                 # mafiasi identity authentication
 drf-spectacular = { version = "~=0.26", extras = ["sidecar"] }  # openapi schema generation
 
 [dev-packages]
